@@ -6,6 +6,7 @@ function AddRowToTable(data) {
     var imagen = data.imagen;
     var vendedor = data.vendedor;
     var id = data.id;
+    var rendimento = data.rendimento;
     var row = document.createElement('tr');
     row.setAttribute("name", "linhaComprar")
     var row_1 = document.createElement('td');
@@ -15,6 +16,7 @@ function AddRowToTable(data) {
     var row_5 = document.createElement('td');
     var row_6 = document.createElement('td');
     var row_7 = document.createElement('td');
+    var row_8 = document.createElement('td');
     row_1.innerHTML = `<img src="${imagen}" alt = "" > `;
     row_2.innerHTML = `${nome}`;
     row_3.innerHTML = `${vendedor}`;
@@ -26,9 +28,11 @@ function AddRowToTable(data) {
                             data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
                             class="pd-setting-ed buy-button" data-original-title="Comprar"><i
                               class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
+    row_8.innerHTML = `$${rendimento}`;
     row.appendChild(row_1);
     row.appendChild(row_2);
     row.appendChild(row_3);
+    row.appendChild(row_8);
     row.appendChild(row_4);
     row.appendChild(row_5);
     row.appendChild(row_6);
@@ -53,24 +57,4 @@ function ComprarClick(event) {
         "compra": qtdCompra
     }
     console.log(data);
-}
-
-function AtualizarClick() {
-    var elements = document.getElementsByName("linhaComprar");
-    var max = elements.length;
-    for (var i = 0; i < max; i++) {
-        elements[0].remove();
-    }
-
-    for (var i = 1; i < 5; i++) {
-        var data = {
-            "vendedor": "Dias Blackwell Tempest",
-            "nome": "Maze Bank",
-            "imagen": "https://pbs.twimg.com/profile_images/891404814818652160/bm4rOKWS_400x400.jpg",
-            "valor": "10000",
-            "qtd": "5000",
-            "id": i
-        }
-        AddRowToTable(data);
-    }
 }

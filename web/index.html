@@ -78,7 +78,7 @@
             <li class="active"><a href="#geral">Geral</a></li>
             <li><a href="#comprar"> Comprar</a></li>
             <li><a href="#vender">Vender</a></li>
-            <li><a href="#extrato">Balanço</a></li>
+            <li><a href="#extrato">Extrato</a></li>
           </ul>
         </div>
       </div>
@@ -91,12 +91,12 @@
               <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom:1px;">
                   <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
-                    <h4 class="text-left text-uppercase"><b>Rendimentos</b></h4>
+                    <h4 class="text-left text-uppercase"><b>Rendimentos (Dia)</b></h4>
                     <div class="row vertical-center-box vertical-center-box-tablet">
                       <div class="text-left col-xs-3 mar-bot-15">
                       </div>
                       <div class="col-xs-9 cus-gh-hd-pro">
-                        <h2 class="text-right no-margin">$100,000</h2>
+                        <h2 class="text-right no-margin" id="geralRendimentos">$100,000</h2>
                       </div>
                     </div>
                   </div>
@@ -108,7 +108,7 @@
                       <div class="text-left col-xs-3 mar-bot-15">
                       </div>
                       <div class="col-xs-9 cus-gh-hd-pro">
-                        <h2 class="text-right no-margin">- $250,000</h2>
+                        <h2 class="text-right no-margin" id="geralDispesas">- $250,000</h2>
                       </div>
                     </div>
                   </div>
@@ -120,7 +120,7 @@
                       <div class="text-left col-xs-3 mar-bot-15">
                       </div>
                       <div class="col-xs-9 cus-gh-hd-pro">
-                        <h2 class="text-right no-margin">- $150,000</h2>
+                        <h2 class="text-right no-margin" id="geralBalanco">- $150,000</h2>
                       </div>
                     </div>
                   </div>
@@ -132,7 +132,7 @@
                       <div class="text-left col-xs-3 mar-bot-15">
                       </div>
                       <div class="col-xs-9 cus-gh-hd-pro">
-                        <h2 class="text-right no-margin">300</h2>
+                        <h2 class="text-right no-margin" id="geralAcoes">300</h2>
                       </div>
                     </div>
                   </div>
@@ -141,9 +141,6 @@
             </div>
           </div>
         </div>
-
-      </div>
-      <div id="comprar" class="tab-pane fade">
         <div class="product-status mg-tb-30">
           <div class="container-fluid">
             <div class="row">
@@ -158,12 +155,44 @@
                           aria-hidden="true"></i></button>
                     </div>
                   </div>
+                  <table id="tableMyTable">
+                    <tbody id="tableMyBody">
+                      <tr>
+                        <th>Imagen</th>
+                        <th>Nome</th>
+                        <th>Rendimento(1 dia)</th>
+                        <th>Quantidade</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="comprar" class="tab-pane fade">
+        <div class="product-status mg-tb-30">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                  <div
+                    style="align-items: center !important; align-content: center !important; flex: 1; margin: 0 auto;">
+                    <h4 class="col-lg-11 col-md-11 col-sm-11">Comprar Açoes</h4>
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <button onclick="AtualizarClick()" data-toggle="tooltip" title="" class="pd-setting-ed buy-button"
+                        data-original-title="Atualizar"><i style="color: #FFFFFF;" class="fa fa-refresh"
+                          aria-hidden="true"></i></button>
+                    </div>
+                  </div>
                   <table id="tableComprarTable">
                     <tbody id="tableComprarBody">
                       <tr>
                         <th>Imagen</th>
                         <th>Nome</th>
                         <th>Vendedor</th>
+                        <th>Rendimento</th>
                         <th>Quantidade</th>
                         <th>Valor (Unidade)</th>
                         <th>Comprar</th>
@@ -175,6 +204,41 @@
             </div>
           </div>
         </div>
+      </div>
+      <div id="vender" class="tab-pane fade">
+        <div class="product-status mg-tb-30">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                  <div
+                    style="align-items: center !important; align-content: center !important; flex: 1; margin: 0 auto;">
+                    <h4 class="col-lg-11 col-md-11 col-sm-11">Comprar Açoes</h4>
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <button onclick="AtualizarClick()" data-toggle="tooltip" title="" class="pd-setting-ed buy-button"
+                        data-original-title="Atualizar"><i style="color: #FFFFFF;" class="fa fa-refresh"
+                          aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                  <table id="tableVenderTable">
+                    <tbody id="tableVenderBody">
+                      <tr>
+                        <th>Imagen</th>
+                        <th>Nome</th>
+                        <th>Rendimento</th>
+                        <th>Qtd Possui</th>
+                        <th>Qtd Vender</th>
+                        <th>Valor (Unidade)</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="extrato" class="tabe-pane fade">
       </div>
     </div>
   </div>
