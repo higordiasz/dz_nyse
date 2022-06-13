@@ -123,8 +123,6 @@ ul {
     clear: both
 }
 
-body {}
-
 .mg-tb-30 {
     margin: 30px 0px;
 }
@@ -589,8 +587,6 @@ ul.dtl-social li a {
     padding: 18px 10px;
 }
 
-.header-right-info {}
-
 .header-right-info ul.header-right-menu li {
     display: inline-block;
 }
@@ -950,9 +946,6 @@ ul.setting-panel-list li {
 .onoffswitch {
     position: relative;
     width: 54px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 
 .onoffswitch-label {
@@ -2155,8 +2148,6 @@ ul#single-product-tab li {
 .form-radio label {
     color: #fff;
 }
-
-.review-content-section .input-group input[type="text"] {}
 
 .review-content-section .input-group input::-webkit-input-placeholder,
 .product-delivary .form-group input::-webkit-input-placeholder,
