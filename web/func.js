@@ -2,7 +2,7 @@ $(function () {
   var actionContainer = $(".actionmenu");
 
   window.onload = function () {
-    //actionContainer.fadeOut();
+    actionContainer.fadeOut();
     for (var i = 1; i < 10; i++) {
       var data = {
         "vendedor": "Dias Blackwell Tempest",
@@ -20,8 +20,7 @@ $(function () {
   };
 
   window.addEventListener('message', function (event) {
-    if (event.action = "showMenu") {
-      var root = document.documentElement;
+    if (event.data.action == "showMenu") {
       actionContainer.fadeIn();
     } else {
       actionContainer.fadeOut();
@@ -31,7 +30,7 @@ $(function () {
   document.onkeyup = function (data) {
     if (data.which == 27) {
       if (actionContainer.is(":visible")) {
-        sendData("ButtonClick", "fechar");
+        sendData("Close", "fechar");
       }
     }
   };
