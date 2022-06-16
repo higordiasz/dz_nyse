@@ -51,3 +51,5 @@ end
 function updateQtdMyAcoes(idAcao, playerId, cb)
     MySQL.Async.insert("UPDATE dz_nyse_user_acoes SET phone = @myPhoneNumber WHERE id = @identifier",{ ['@myPhoneNumber'] = myPhoneNumber, ['@identifier'] = identifier })
 end
+
+function
