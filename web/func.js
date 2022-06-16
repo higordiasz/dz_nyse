@@ -2,7 +2,7 @@ $(function () {
   var actionContainer = $(".actionmenu");
 
   window.onload = function () {
-    actionContainer.fadeOut();
+    //actionContainer.fadeOut();
     for (var i = 1; i < 10; i++) {
       var data = {
         "vendedor": "Dias Blackwell Tempest",
