@@ -21,11 +21,12 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_venda` (
 CREATE TABLE IF NOT EXISTS `dz_nyse_extrato` (
     `id` int(50) NOT NULL AUTO_INCREMENT,
     `id_acao` varchar(50) NOT NULL,
-	  `tipo` varchar(50) NOT NULL,
-	  `quantidade` varchar(50) NOT NULL,
-	  `valor` varchar(50) NOT NULL,
-	  `player_id` varchar(50) NOT NULL,
-	  `player_name` varchar(50) NOT NULL,
+	`tipo` varchar(50) NOT NULL,
+	`quantidade` varchar(50) NOT NULL,
+	`valor` varchar(50) NOT NULL,
+	`descricao` varchar(50) NOT NULL,
+	`player_id` varchar(50) NOT NULL,
+	`player_name` varchar(50) NOT NULL,
     PRIMARY KEY(`id`)
 )
 
