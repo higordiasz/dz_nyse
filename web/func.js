@@ -22,9 +22,6 @@ $(function () {
           if (myAcoes != undefined) {
             var rendimentos = 0;
             var qtdAcoes = 0;
-
-            // Minhas açoes
-
             for (var i = 0; i < myAcoes.length; i++) {
               var index = -1;
               for (var j = 0; j < acoes.length; j++) {
@@ -86,6 +83,7 @@ $(function () {
             }
             if (index > -1) {
               var data = {
+                'idAcao': comprarAcoes[i].id_acao,
                 'imagen': acoes[index].image,
                 'nome': acoes[index].nome,
                 'qtd': comprarAcoes[i].quantidade,
@@ -100,7 +98,100 @@ $(function () {
         }
       }
     } else {
-      actionContainer.fadeOut();
+      if (event.data.action == "atualizar") {
+        ClearRowComprarTable();
+        ClearRowMyTable();
+        ClearRowVenderTable();
+        ClearRowExtratoTable();
+        var acoes = event.data.acoes;
+        var myAcoes = event.data.myAcoes;
+        var myExtrato = event.data.myExtrato;
+        var comprarAcoes = event.data.comprarAcoes;
+        var userInfo = event.data.userInfo;
+        if (acoes != undefined) {
+          if (userInfo != undefined) {
+            if (myAcoes != undefined) {
+              var rendimentos = 0;
+              var qtdAcoes = 0;
+              for (var i = 0; i < myAcoes.length; i++) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == myAcoes[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  rendimentos += (parseInt(acoes[index].rendimento) * parseInt(myAcoes[i].quantidade));
+                  qtdAcoes += parseInt(myAcoes[i].quantidade);
+                  var data = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': myAcoes[i].quantidade,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  };
+                  var dataVender = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': myAcoes[i].quantidade,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'id': acoes[index].id
+                  }
+                  AddRowToMyTable(data);
+                  AddRowToVenderTable(dataVender);
+                }
+              }
+              this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralAcoes').textContent = qtdAcoes;
+              this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            }
+            if (myExtrato != undefined) {
+              for (var i = 0; i < myExtrato.length; i++) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == myExtrato[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  var data = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'descricao': myExtrato[i].descricao,
+                    'tipo': myExtrato[i].tipo,
+                  };
+                  AddRowToExtratoTable(data);
+                }
+              }
+            }
+          }
+          if (comprarAcoes != undefined) {
+            for (var i = 0; i < comprarAcoes.length; i++) {
+              var index = -1;
+              for (var j = 0; j < acoes.length; j++) {
+                if (acoes[j].id == comprarAcoes[i].id_acao)
+                  index = j;
+              }
+              if (index > -1) {
+                var data = {
+                  'idAcao': comprarAcoes[i].id_acao,
+                  'imagen': acoes[index].image,
+                  'nome': acoes[index].nome,
+                  'qtd': comprarAcoes[i].quantidade,
+                  'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  'vendedor': comprarAcoes[i].vendedor,
+                  'id': comprarAcoes[i].id,
+                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                };
+                AddRowToTable(data);
+              }
+            }
+          }
+        }
+      }
+      else {
+        actionContainer.fadeOut();
+      }
     }
   })
 
@@ -124,29 +215,33 @@ $(function () {
 
   function ClearRowMyTable() {
     var linhas = document.getElementsByName('linhaMy');
-    for (var i = 0; i < linhas.length; i++) {
-      linhas[i].remove();
+    var max = linhas.length;
+    for (var i = 0; i < max; i++) {
+      linhas[0].remove();
     }
   }
 
   function ClearRowComprarTable() {
     var linhas = document.getElementsByName('linhaComprar');
-    for (var i = 0; i < linhas.length; i++) {
-      linhas[i].remove();
+    var max = linhas.length;
+    for (var i = 0; i < max; i++) {
+      linhas[0].remove();
     }
   }
 
   function ClearRowVenderTable() {
     var linhas = document.getElementsByName('linhaVender');
-    for (var i = 0; i < linhas.length; i++) {
-      linhas[i].remove();
+    var max = linhas.length;
+    for (var i = 0; i < max; i++) {
+      linhas[0].remove();
     }
   }
 
   function ClearRowExtratoTable() {
     var linhas = document.getElementsByName('linhaExtrato');
-    for (var i = 0; i < linhas.length; i++) {
-      linhas[i].remove();
+    var max = linhas.length;
+    for (var i = 0; i < max; i++) {
+      linhas[0].remove();
     }
   }
 
@@ -175,8 +270,21 @@ $(function () {
 })
 
 function AtualizarClick() {
-  ClearRowComprarTable();
-  ClearRowMyTable();
-  ClearRowVenderTable();
-  ClearRowExtratoTable();
+  sendData2("Atualizar", "atualizar");
+}
+
+function sendData2(name, data) {
+  $.post("http://dz_nyse/" + name, JSON.stringify(data), function (
+    datab
+  ) {
+    if (datab != "ok") {
+      console.log(datab);
+    }
+  });
+}
+
+function valorToInt(valor) {
+  var arr = valor.split('.');
+  var retorno = arr[0].replace('$', '').replace(',', '');
+  return retorno;
 }

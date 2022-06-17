@@ -40,10 +40,36 @@ function NuiAction()
     end
 end
 
+function AtualizarNui()
+    local acoes = vSERVER.getAcoes()
+        local myAcoes = vSERVER.getMyAcoes()
+        local myExtrato = vSERVER.getMyExtrato()
+        local comprarAcoes = vSERVER.getComprarAcoes()
+        local userInfo = vSERVER.getUserInfo()
+        SetNuiFocus(true, true)
+        SendNUIMessage({
+            action = "atualizar",
+            acoes = acoes,
+            myAcoes = myAcoes,
+            myExtrato = myExtrato,
+            comprarAcoes = comprarAcoes,
+            userInfo = userInfo
+        })
+end
+
 RegisterNUICallback("Close",function(data,cb)
 	if data == "fechar" then
 		NuiAction();
 	end
+end)
+
+RegisterNUICallback("Atualizar",function()
+    AtualizarNui();
+end)
+
+RegisterNUICallback("Comprar",function(data)
+    vSERVER.comprarAcoes(data);
+    AtualizarNui();
 end)
 
 RegisterCommand('nyse', function()

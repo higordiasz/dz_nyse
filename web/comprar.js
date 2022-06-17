@@ -7,6 +7,7 @@ function AddRowToTable(data) {
     var vendedor = data.vendedor;
     var id = data.id;
     var rendimento = data.rendimento;
+    var idAcao = data.idAcao;
     var row = document.createElement('tr');
     row.setAttribute("name", "linhaComprar")
     var row_1 = document.createElement('td');
@@ -24,7 +25,7 @@ function AddRowToTable(data) {
     row_5.innerHTML = `${valor}`;
     row_6.innerHTML = `<input style="width: 140px;" id="${id}" max="${qtd}" type="number" class="form-control"
                             placeholder="Quantidade">`;
-    row_7.innerHTML = `<button onclick="ComprarClick(this)" name="${id}" data-vendedor="${vendedor}" data-vendaID="${id}"
+    row_7.innerHTML = `<button onclick="ComprarClick(this)" name="${id}" data-idAcao="${idAcao}" data-vendedor="${vendedor}" data-vendaID="${id}"
                             data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
                             class="pd-setting-ed buy-button" data-original-title="Comprar"><i
                               class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
@@ -42,19 +43,22 @@ function AddRowToTable(data) {
 
 function ComprarClick(event) {
     var nome = event.getAttribute("data-name");
-    var valor = event.getAttribute("data-valor");
+    var valor = valorToInt(event.getAttribute("data-valor"));
     var qtd = event.getAttribute("data-qtd");
     var vendedor = event.getAttribute("data-vendedor");
     var id = event.getAttribute("data-vendaID");
     var element = document.getElementById(id);
     var qtdCompra = element.value;
+    var idAcao = event.getAttribute("data-idAcao");
     var data = {
+        "idAcao": idAcao,
         "vendedor": vendedor,
         "nome": nome,
         "valor": valor,
         "qtd": qtd,
         "id": id,
-        "compra": qtdCompra
+        "compra": qtdCompra,
+        "total": (parseInt(valor) * parseInt(qtdCompra))
     }
-    console.log(data);
+    sendData2("Comprar", data);
 }
