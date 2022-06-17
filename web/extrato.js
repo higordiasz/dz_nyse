@@ -6,7 +6,7 @@ function AddRowToExtratoTable(data) {
     var descricao = data.descricao;
     var tipo = data.tipo;
     var row = document.createElement('tr');
-    row.setAttribute("name", "linhaVender")
+    row.setAttribute("name", "linhaExtrato")
     var row_1 = document.createElement('td');
     var row_2 = document.createElement('td');
     var row_3 = document.createElement('td');
