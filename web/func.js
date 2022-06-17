@@ -78,7 +78,25 @@ $(function () {
           }
         }
         if (comprarAcoes != undefined) {
-
+          for (var i = 0; i < comprarAcoes.length; i++) {
+            var index = -1;
+            for (var j = 0; j < acoes.length; j++) {
+              if (acoes[j].id == comprarAcoes[i].id_acao)
+                index = j;
+            }
+            if (index > -1) {
+              var data = {
+                'imagen': acoes[index].image,
+                'nome': acoes[index].nome,
+                'qtd': comprarAcoes[i].quantidade,
+                'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                'vendedor': comprarAcoes[i].vendedor,
+                'id': comprarAcoes[i].id,
+                'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+              };
+              AddRowToTable(data);
+            }
+          }
         }
       }
     } else {
@@ -157,22 +175,8 @@ $(function () {
 })
 
 function AtualizarClick() {
-  var elements = document.getElementsByName("linhaComprar");
-  var max = elements.length;
-  for (var i = 0; i < max; i++) {
-    elements[0].remove();
-  }
-
-  for (var i = 1; i < 5; i++) {
-    var data = {
-      "vendedor": "Dias Blackwell Tempest",
-      "nome": "Maze Bank",
-      "imagen": "https://pbs.twimg.com/profile_images/891404814818652160/bm4rOKWS_400x400.jpg",
-      "valor": "10000",
-      "qtd": "5000",
-      "id": i,
-      "rendimento": "1000"
-    }
-    AddRowToTable(data);
-  }
+  ClearRowComprarTable();
+  ClearRowMyTable();
+  ClearRowVenderTable();
+  ClearRowExtratoTable();
 }

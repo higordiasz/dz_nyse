@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_acoes` (
 
 DROP TABLE IF EXISTS `dz_nyse_venda`;
 CREATE TABLE IF NOT EXISTS `dz_nyse_venda` (
-    `id` varchar(50) NOT NULL,
+    `id` int(50) NOT NULL AUTO_INCREMENT,
     `id_acao` varchar(50) NOT NULL,
 	`vendedor` varchar(50) NOT NULL,
 	`quantidade` varchar(50) NOT NULL,
@@ -58,3 +58,7 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_user` (
 INSERT INTO dz_nyse_acoes (`id`, `image`, `nome`, `valor`, `rendimento`) VALUES('maze01', 'https://i.imgur.com/yr7Vmbf.jpeg', 'Maze Bank', '950', '55'),
 ('karin01', 'https://imgur.com/39Zo6sg.jpeg', 'Karin', '2355', '98'),
 ('securo01', 'https://imgur.com/SUGnAIS.jpeg', 'SecuroServ', '1425', '75');
+
+INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player_id`, `player_name`) VALUES ('maze01','Maze Bank','1000','950','-1','Governo'),
+('karin01','Karin','1000','2355','-1','Governo'),
+('securo01','SecuroServ','1000','1425','-1','Governo')
