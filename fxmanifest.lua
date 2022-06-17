@@ -11,7 +11,7 @@ client_scripts {
 
 server_scripts {
 	"@vrp/lib/vehicles.lua",
-	"@vrp/lib/itemlist.lua",
+	'@mysql-async/lib/MySQL.lua',
 	"@vrp/lib/utils.lua",
 	"server/*"
 }

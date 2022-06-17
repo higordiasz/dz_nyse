@@ -16,7 +16,7 @@ function AddRowToVenderTable(data) {
   var row_7 = document.createElement('td');
   row_1.innerHTML = `<img src="${imagen}" alt = "" > `;
   row_2.innerHTML = `${nome}`;
-  row_3.innerHTML = `$${rendimento}`;
+  row_3.innerHTML = `${rendimento}`;
   row_4.innerHTML = `${qtd}`;
   row_5.innerHTML = `<input style="width: 140px;" id="${id}Qtd" max="${qtd}" type="number" class="form-control"
                             placeholder="Quantidade">`;

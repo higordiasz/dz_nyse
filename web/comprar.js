@@ -21,14 +21,14 @@ function AddRowToTable(data) {
     row_2.innerHTML = `${nome}`;
     row_3.innerHTML = `${vendedor}`;
     row_4.innerHTML = `${qtd}`;
-    row_5.innerHTML = `$${valor}`;
+    row_5.innerHTML = `${valor}`;
     row_6.innerHTML = `<input style="width: 140px;" id="${id}" max="${qtd}" type="number" class="form-control"
                             placeholder="Quantidade">`;
     row_7.innerHTML = `<button onclick="ComprarClick(this)" name="${id}" data-vendedor="${vendedor}" data-vendaID="${id}"
                             data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
                             class="pd-setting-ed buy-button" data-original-title="Comprar"><i
                               class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
-    row_8.innerHTML = `$${rendimento}`;
+    row_8.innerHTML = `${rendimento}`;
     row.appendChild(row_1);
     row.appendChild(row_2);
     row.appendChild(row_3);

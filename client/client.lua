@@ -18,9 +18,19 @@ local nui = false;
 function NuiAction()
     nui = not nui
     if nui then
+        local acoes = vSERVER.getAcoes()
+        local myAcoes = vSERVER.getMyAcoes()
+        local myExtrato = vSERVER.getMyExtrato()
+        local comprarAcoes = vSERVER.getComprarAcoes()
+        local userInfo = vSERVER.getUserInfo()
         SetNuiFocus(true, true)
         SendNUIMessage({
-            action = "showMenu"
+            action = "showMenu",
+            acoes = acoes,
+            myAcoes = myAcoes,
+            myExtrato = myExtrato,
+            comprarAcoes = comprarAcoes,
+            userInfo = userInfo
         })
     else
         SetNuiFocus(false, false)

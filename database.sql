@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `dz_nyse_acoes`;
 CREATE TABLE IF NOT EXISTS `dz_nyse_acoes` (
     `id` varchar(50) NOT NULL,
     `image` varchar(50) NOT NULL,
@@ -5,8 +6,9 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_acoes` (
 	`valor` varchar(50) NOT NULL,
 	`rendimento` varchar(50) NOT NULL,
     PRIMARY KEY(`id`)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `dz_nyse_venda`;
 CREATE TABLE IF NOT EXISTS `dz_nyse_venda` (
     `id` varchar(50) NOT NULL,
     `id_acao` varchar(50) NOT NULL,
@@ -16,27 +18,43 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_venda` (
 	`player_id` varchar(50) NOT NULL,
 	`player_name` varchar(50) NOT NULL,
     PRIMARY KEY(`id`)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `dz_nyse_extrato`;
 CREATE TABLE IF NOT EXISTS `dz_nyse_extrato` (
     `id` int(50) NOT NULL AUTO_INCREMENT,
     `id_acao` varchar(50) NOT NULL,
 	`tipo` varchar(50) NOT NULL,
 	`quantidade` varchar(50) NOT NULL,
 	`valor` varchar(50) NOT NULL,
-	`valor` varchar(50) NOT NULL,
+	`descricao` varchar(50) NOT NULL,
 	`player_id` varchar(50) NOT NULL,
 	`player_name` varchar(50) NOT NULL,
     PRIMARY KEY(`id`)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `dz_nyse_user_acoes`;
 CREATE TABLE IF NOT EXISTS `dz_nyse_user_acoes` (
     `id` int(50) NOT NULL AUTO_INCREMENT,
     `id_acao` varchar(50) NOT NULL,
 	`quantidade` varchar(50) NOT NULL,
+	`ultimo_rendimento` varchar(50) NOT NULL,
 	`player_id` varchar(50) NOT NULL,
 	`player_name` varchar(50) NOT NULL,
     PRIMARY KEY(`id`)
-)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `dz_nyse_acoes` (`id`, `image`, `nome`, `valor`, `rendimento`) VALUES (``, `Maze Bank`, ``, ``, ``)
+DROP TABLE IF EXISTS `dz_nyse_user`;
+CREATE TABLE IF NOT EXISTS `dz_nyse_user` (
+	`id` int(50) NOT NULL AUTO_INCREMENT,
+    `saldo_disponivel` varchar(50) NOT NULL,
+	`despesas` varchar(50) NOT NULL,
+	`rendimentos` varchar(50) NOT NULL,
+	`player_id` varchar(50) NOT NULL,
+	`player_name` varchar(50) NOT NULL,
+    PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO dz_nyse_acoes (`id`, `image`, `nome`, `valor`, `rendimento`) VALUES('maze01', 'https://i.imgur.com/yr7Vmbf.jpeg', 'Maze Bank', '950', '55'),
+('karin01', 'https://imgur.com/39Zo6sg.jpeg', 'Karin', '2355', '98'),
+('securo01', 'https://imgur.com/SUGnAIS.jpeg', 'SecuroServ', '1425', '75');
