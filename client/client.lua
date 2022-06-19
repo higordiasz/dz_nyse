@@ -18,6 +18,7 @@ local nui = false;
 function NuiAction()
     nui = not nui
     if nui then
+        vSERVER.limpar()
         local acoes = vSERVER.getAcoes()
         local myAcoes = vSERVER.getMyAcoes()
         local myExtrato = vSERVER.getMyExtrato()

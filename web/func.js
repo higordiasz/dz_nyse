@@ -20,10 +20,10 @@ $(function () {
       if (acoes != undefined) {
         if (userInfo != undefined) {
           if (myAcoes != undefined) {
-            if (myAcoes[i].quantidade > 0) {
-              var rendimentos = 0;
-              var qtdAcoes = 0;
-              for (var i = 0; i < myAcoes.length; i++) {
+            var rendimentos = 0;
+            var qtdAcoes = 0;
+            for (var i = 0; i < myAcoes.length; i++) {
+              if (myAcoes[i].quantidade > 0) {
                 var index = -1;
                 for (var j = 0; j < acoes.length; j++) {
                   if (acoes[j].id == myAcoes[i].id_acao)
@@ -49,15 +49,15 @@ $(function () {
                   AddRowToVenderTable(dataVender);
                 }
               }
-              this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralAcoes').textContent = qtdAcoes;
-              this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             }
+            this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            this.document.getElementById('geralAcoes').textContent = qtdAcoes;
+            this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
           }
           if (myExtrato != undefined) {
-            for (var i = 0; i < myExtrato.length; i++) {
+            for (var i = myExtrato.length - 1; i > -1; i--) {
               if (myExtrato[i].id_acao == "saque") {
                 var data = {
                   'imagen': "https://imgur.com/6HYFTDz.jpeg",
@@ -90,23 +90,25 @@ $(function () {
         }
         if (comprarAcoes != undefined) {
           for (var i = 0; i < comprarAcoes.length; i++) {
-            var index = -1;
-            for (var j = 0; j < acoes.length; j++) {
-              if (acoes[j].id == comprarAcoes[i].id_acao)
-                index = j;
-            }
-            if (index > -1) {
-              var data = {
-                'idAcao': comprarAcoes[i].id_acao,
-                'imagen': acoes[index].image,
-                'nome': acoes[index].nome,
-                'qtd': comprarAcoes[i].quantidade,
-                'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                'vendedor': comprarAcoes[i].vendedor,
-                'id': comprarAcoes[i].id,
-                'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-              };
-              AddRowToTable(data);
+            if (comprarAcoes[i].quantidade > 0) {
+              var index = -1;
+              for (var j = 0; j < acoes.length; j++) {
+                if (acoes[j].id == comprarAcoes[i].id_acao)
+                  index = j;
+              }
+              if (index > -1) {
+                var data = {
+                  'idAcao': comprarAcoes[i].id_acao,
+                  'imagen': acoes[index].image,
+                  'nome': acoes[index].nome,
+                  'qtd': comprarAcoes[i].quantidade,
+                  'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  'vendedor': comprarAcoes[i].vendedor,
+                  'id': comprarAcoes[i].id,
+                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                };
+                AddRowToTable(data);
+              }
             }
           }
         }
@@ -125,10 +127,10 @@ $(function () {
         if (acoes != undefined) {
           if (userInfo != undefined) {
             if (myAcoes != undefined) {
-              if (myAcoes[i].quantidade > 0) {
-                var rendimentos = 0;
-                var qtdAcoes = 0;
-                for (var i = 0; i < myAcoes.length; i++) {
+              var rendimentos = 0;
+              var qtdAcoes = 0;
+              for (var i = 0; i < myAcoes.length; i++) {
+                if (myAcoes[i].quantidade > 0) {
                   var index = -1;
                   for (var j = 0; j < acoes.length; j++) {
                     if (acoes[j].id == myAcoes[i].id_acao)
@@ -154,15 +156,15 @@ $(function () {
                     AddRowToVenderTable(dataVender);
                   }
                 }
-                this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-                this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-                this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-                this.document.getElementById('geralAcoes').textContent = qtdAcoes;
-                this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
               }
+              this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralAcoes').textContent = qtdAcoes;
+              this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             }
             if (myExtrato != undefined) {
-              for (var i = 0; i < myExtrato.length; i++) {
+              for (var i = myExtrato.length - 1; i > -1; i--) {
                 if (myExtrato[i].id_acao == "saque") {
                   var data = {
                     'imagen': "https://imgur.com/6HYFTDz.jpeg",
@@ -195,23 +197,25 @@ $(function () {
           }
           if (comprarAcoes != undefined) {
             for (var i = 0; i < comprarAcoes.length; i++) {
-              var index = -1;
-              for (var j = 0; j < acoes.length; j++) {
-                if (acoes[j].id == comprarAcoes[i].id_acao)
-                  index = j;
-              }
-              if (index > -1) {
-                var data = {
-                  'idAcao': comprarAcoes[i].id_acao,
-                  'imagen': acoes[index].image,
-                  'nome': acoes[index].nome,
-                  'qtd': comprarAcoes[i].quantidade,
-                  'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                  'vendedor': comprarAcoes[i].vendedor,
-                  'id': comprarAcoes[i].id,
-                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                };
-                AddRowToTable(data);
+              if (comprarAcoes[i].quantidade > 0) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == comprarAcoes[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  var data = {
+                    'idAcao': comprarAcoes[i].id_acao,
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': comprarAcoes[i].quantidade,
+                    'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'vendedor': comprarAcoes[i].vendedor,
+                    'id': comprarAcoes[i].id,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  };
+                  AddRowToTable(data);
+                }
               }
             }
           }

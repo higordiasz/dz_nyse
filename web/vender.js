@@ -38,10 +38,10 @@ function AddRowToVenderTable(data) {
 
 function VenderClick(event) {
   var nome = event.getAttribute("data-name");
-  var valor = document.getElementById(name + "Valor").value;
-  var qtd = event.getAttribute("data-qtd");
-  var qtdVenda = document.getElementById(name + "Qtd").value;
   var id = event.getAttribute("data-id");
+  var valor = document.getElementById(id + "Valor").value;
+  var qtd = event.getAttribute("data-qtd");
+  var qtdVenda = document.getElementById(id + "Qtd").value;
   var data = {
     "nome": nome,
     "valor": valor,

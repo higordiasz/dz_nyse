@@ -102,63 +102,67 @@ function getUserInfoId(playerId)
 end
 
 function updateQtdToComprarId(id, qtd)
-	MySQL.Async.insert("UPDATE dz_nyse_venda SET `quantidade` = @qtd WHERE `id` = @id", { ["@qtd"] = qtd, ["@id"] = id })
+	MySQL.Sync.insert("UPDATE dz_nyse_venda SET `quantidade` = @qtd WHERE `id` = @id", { ["@qtd"] = qtd, ["@id"] = id })
 end
 
 function updateQtdMyAcoes(idAcao, playerId, qtd)
-	MySQL.Async.insert("UPDATE dz_nyse_user_acoes SET `quantidade` = @qtd WHERE `player_id` = @playerId AND `id_acao` = @idAcao"
+	MySQL.Sync.insert("UPDATE dz_nyse_user_acoes SET `quantidade` = @qtd WHERE `player_id` = @playerId AND `id_acao` = @idAcao"
 		, { ['@qtd'] = qtd, ['@playerId'] = playerId, ['@idAcao'] = idAcao })
 end
 
 function updateRendMyAcoes(idAcao, playerId, last)
-	MySQL.Async.insert("UPDATE dz_nyse_user_acoes SET `ultimo_rendimento` = @last WHERE `player_id` = @playerId AND `id_acao` = @idAcao"
+	MySQL.Sync.insert("UPDATE dz_nyse_user_acoes SET `ultimo_rendimento` = @last WHERE `player_id` = @playerId AND `id_acao` = @idAcao"
 		, { ['@last'] = last, ['@playerId'] = playerId, ['@idAcao'] = idAcao })
 end
 
 function updateUserInfo(playerId, despesas, rendimentos, saldoDisponivel)
-	MySQL.Async.insert("UPDATE dz_nyse_user SET `saldo_disponivel` = @saldoDisponivel, `despesas` = @despesas, `rendimentos` = @rendimentos WHERE `player_id` = @playerId"
+	MySQL.Sync.insert("UPDATE dz_nyse_user SET `saldo_disponivel` = @saldoDisponivel, `despesas` = @despesas, `rendimentos` = @rendimentos WHERE `player_id` = @playerId"
 		,
 		{ ["@saldoDisponivel"] = saldoDisponivel, ["@despesas"] = despesas, ["@rendimentos"] = rendimentos,
 			["@playerId"] = playerId })
 end
 
 function updateUserInfoDespesas(playerId, despesas)
-	MySQL.Async.insert("UPDATE dz_nyse_user SET `despesas` = @despesas WHERE `player_id` = @playerId",
+	MySQL.Sync.insert("UPDATE dz_nyse_user SET `despesas` = @despesas WHERE `player_id` = @playerId",
 		{ ["@despesas"] = despesas, ["@playerId"] = playerId })
 end
 
 function updateUserInfoRendimentos(playerId, rendimentos)
-	MySQL.Async.insert("UPDATE dz_nyse_user SET `rendimentos` = @rendimentos WHERE `player_id` = @playerId",
+	MySQL.Sync.insert("UPDATE dz_nyse_user SET `rendimentos` = @rendimentos WHERE `player_id` = @playerId",
 		{ ["@rendimentos"] = rendimentos, ["@playerId"] = playerId })
 end
 
 function updateUserInfoSaldoDisponivel(playerId, saldoDisponivel)
-	MySQL.Async.insert("UPDATE dz_nyse_user SET `saldo_disponivel` = @saldoDisponivel WHERE `player_id` = @playerId",
+	MySQL.Sync.insert("UPDATE dz_nyse_user SET `saldo_disponivel` = @saldoDisponivel WHERE `player_id` = @playerId",
 		{ ["@saldoDisponivel"] = saldoDisponivel, ["@playerId"] = playerId })
 end
 
 function addMyAcoes(idAcao, quantidade, ultimoRendimento, playerId, playerName)
-	MySQL.Async.insert("INSERT INTO dz_nyse_user_acoes (`id_acao`, `quantidade`, `ultimo_rendimento`, `player_id`, `player_name`) VALUES (@idAcao, @quantidade, @ultimoRendimento, @playerId, @playerName)"
+	MySQL.Sync.insert("INSERT INTO dz_nyse_user_acoes (`id_acao`, `quantidade`, `ultimo_rendimento`, `player_id`, `player_name`) VALUES (@idAcao, @quantidade, @ultimoRendimento, @playerId, @playerName)"
 		,
 		{ ['@idAcao'] = idAcao, ['@quantidade'] = quantidade, ['@ultimoRendimento'] = ultimoRendimento,
 			['@playerId'] = playerId, ['@playerName'] = playerName })
 end
 
 function addUserInfo(playerId, playerName, despesas)
-	MySQL.Async.insert("INSERT INTO dz_nyse_user (`saldo_disponivel`, `despesas`, `rendimentos`, `player_id`, `player_name`) VALUES ('0', @despesas, '0', @playerId, @playerName)"
+	MySQL.Sync.insert("INSERT INTO dz_nyse_user (`saldo_disponivel`, `despesas`, `rendimentos`, `player_id`, `player_name`) VALUES ('0', @despesas, '0', @playerId, @playerName)"
 		, { ["@despesas"] = despesas, ["@playerId"] = playerId, ["@playerName"] = playerName })
 end
 
 function addExtrato(idAcao, tipo, quantidade, valor, descricao, playerId, playerName)
-	MySQL.Async.insert("INSERT INTO dz_nyse_extrato (`id_acao`, `tipo`, `quantidade`, `valor`, `descricao`, `player_id`, `player_name`) VALUES (@idAcao, @tipo, @quantidade, @valor, @descricao, @playerId, @playerName)"
+	MySQL.Sync.insert("INSERT INTO dz_nyse_extrato (`id_acao`, `tipo`, `quantidade`, `valor`, `descricao`, `player_id`, `player_name`) VALUES (@idAcao, @tipo, @quantidade, @valor, @descricao, @playerId, @playerName)"
 		,
 		{ ["@idAcao"] = idAcao, ["@tipo"] = tipo, ["@quantidade"] = quantidade, ["@valor"] = valor, ["@descricao"] = descricao,
 			["@playerId"] = playerId, ["@playerName"] = playerName, })
 end
 
 function addVendaAcoes(idAcao, qtd, valor, playerId, playerName)
-	MySQL.Async.insert("INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player_id`, `player_name`) VALUES (@idAcao, @playerName, @qtd, @valor, @playerId, @playerName)"
+	MySQL.Sync.insert("INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player_id`, `player_name`) VALUES (@idAcao, @playerName, @qtd, @valor, @playerId, @playerName)"
 		,{ ["@idAcao"] = idAcao, ["@qtd"] = qtd, ["@valor"] = valor, [" @playerId"] = playerId, ["@playerName"] = playerName })
+end
+
+function deleteAllVenderAcoes()
+	MySQL.Sync.execute("DELETE FROM dz_nyse_venda WHERE `quantidade` = 0")
 end
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -208,6 +212,8 @@ function paymentAcao(id, qtd, valor, idAcao)
 			if acao ~= nil then
 				if userInfo ~= nil then
 					local saldoAtual = valor + userInfo.saldo_disponivel
+					local rendimentos = valor + userInfo.rendimentos
+					updateUserInfoRendimentos(user_id, rendimentos)
 					updateUserInfoSaldoDisponivel(user_id, saldoAtual)
 					addExtrato(idAcao, "Venda", qtd, valor, "Venda de " .. qtd .. " açoes " .. acao.nome .. "", user_id,
 						"" .. identity.name .. " " .. identity.name2 .. "")
@@ -226,6 +232,10 @@ function mysplit (inputstr, sep)
                 table.insert(t, str)
         end
         return t
+end
+
+function cRP.limpar()
+	deleteAllVenderAcoes()
 end
 
 function cRP.getAcoes()
@@ -329,6 +339,12 @@ function cRP.comprarAcoes(data)
 						end
 					end
 				else
+					paymentAcao(data.id, data.compra, data.total, data.idAcao)
+					addExtrato(data.idAcao, "Compra", data.compra, data.total,
+						"Compra de " .. data.compra .. " açoes " .. data.nome .. " do " .. data.vendedor .. "", user_id,
+						"" .. identity.name .. " " .. identity.name2 .. "")
+					local qtdToSet = parseInt(data.qtd) - parseInt(data.compra)
+					updateQtdToComprarId(data.id, qtdToSet)
 					addMyAcoes(data.idAcao, data.compra, os.date('%d/%m/%Y'), user_id, "" .. identity.name .. " " .. identity.name2 ..
 						"");
 					if checkUserInfo(user_id) then
@@ -347,15 +363,12 @@ function cRP.comprarAcoes(data)
 					end
 				end
 			else
-				print("erro 2")
 				return false
 			end
 		else
-			print("erro 3")
 			return false
 		end
 	else
-		print("erro 4")
 		return false
 	end
 end
@@ -386,10 +399,11 @@ function cRP.venderAcoes(data)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
 		local acao = getAcoesId(data.id)
-		if acoe ~= nil then
+		if acao ~= nil then
 			local myAcao = getMyAcoesId(user_id, data.id)
 			if myAcao ~= nil then
 				local dif = parseInt(myAcao.quantidade) - parseInt(data.qtdVenda)
+				print(dif)
 				if dif > -1 then
 					updateQtdMyAcoes(data.id, user_id, dif)
 					addVendaAcoes(data.id, data.qtdVenda, data.valor, user_id,
@@ -406,6 +420,7 @@ function cRP.checkRendimentos()
 	local source = source
 	local user_id = getPlayerID(source)
 	if user_id then
+		local identity = vRP.getUserIdentity(user_id)
 		local userInfo = getUserInfoId(user_id)
 		if userInfo ~= nil then
 			local myAcoes = getMyAcoes(user_id)
@@ -420,14 +435,16 @@ function cRP.checkRendimentos()
 					if wholedays > 0 then
 						local acao = getAcoesId(value.id_acao)
 						if acao ~= nil then
-							local value = parseInt(value.quantidade) * parseInt(value.rendimento)
-							rendimento = rendimento + value
+							local valueRendimento = parseInt(value.quantidade) * parseInt(acao.rendimento)
+							rendimento = rendimento + (valueRendimento * wholedays)
 							updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
+							addExtrato(value.id_acao, "Rendimento", 1, rendimento, "Rendimento de " ..rendimento.. " da acao "..acao.nome.."", user_id,
+								"" .. identity.name .. " " .. identity.name2 .. "")
 						end
 					end
 				end
-				local disponivel = parseInt(userInfo.saldo_disponivel) + rendimentos
-				local rendimentosInfo = parseInt(userInfo.rendimentos) + rendimentos
+				local disponivel = parseInt(userInfo.saldo_disponivel) + rendimento
+				local rendimentosInfo = parseInt(userInfo.rendimentos) + rendimento
 				updateUserInfoRendimentos(user_id, rendimentosInfo)
 				updateUserInfoSaldoDisponivel(user_id, disponivel)
 				return true
