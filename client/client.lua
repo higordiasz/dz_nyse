@@ -68,10 +68,22 @@ RegisterNUICallback("Atualizar",function()
 end)
 
 RegisterNUICallback("Comprar",function(data)
-    vSERVER.comprarAcoes(data);
-    AtualizarNui();
+    if vSERVER.comprarAcoes(data) then
+        AtualizarNui()
+    end
+end)
+
+RegisterNUICallback("Sacar", function(data)
+    if vServer.sacarRendimento(data) then
+        AtualizarNui()
+    end
 end)
 
 RegisterCommand('nyse', function()
     NuiAction();
+end)
+
+RegisterNetEvent("dz_nyse:Update")
+AddEventHandler("dz_nyse:Update",function()
+	AtualizarNui()
 end)

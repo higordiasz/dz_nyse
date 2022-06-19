@@ -147,20 +147,32 @@ $(function () {
             }
             if (myExtrato != undefined) {
               for (var i = 0; i < myExtrato.length; i++) {
-                var index = -1;
-                for (var j = 0; j < acoes.length; j++) {
-                  if (acoes[j].id == myExtrato[i].id_acao)
-                    index = j;
-                }
-                if (index > -1) {
+                if (myExtrato[i].id_acao == "saque") {
                   var data = {
-                    'imagen': acoes[index].image,
-                    'nome': acoes[index].nome,
+                    'imagen': "",
+                    'nome': "Saque",
                     'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
                     'descricao': myExtrato[i].descricao,
                     'tipo': myExtrato[i].tipo,
                   };
                   AddRowToExtratoTable(data);
+                }
+                else {
+                  var index = -1;
+                  for (var j = 0; j < acoes.length; j++) {
+                    if (acoes[j].id == myExtrato[i].id_acao)
+                      index = j;
+                  }
+                  if (index > -1) {
+                    var data = {
+                      'imagen': acoes[index].image,
+                      'nome': acoes[index].nome,
+                      'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                      'descricao': myExtrato[i].descricao,
+                      'tipo': myExtrato[i].tipo,
+                    };
+                    AddRowToExtratoTable(data);
+                  }
                 }
               }
             }
@@ -271,6 +283,14 @@ $(function () {
 
 function AtualizarClick() {
   sendData2("Atualizar", "atualizar");
+}
+
+function Sacar(data) {
+  var valor = document.getElementById('sacar').value;
+  var data = {
+    "valor": valor
+  }
+  sendData2("Sacar", data);
 }
 
 function sendData2(name, data) {
