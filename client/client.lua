@@ -32,6 +32,9 @@ function NuiAction()
             comprarAcoes = comprarAcoes,
             userInfo = userInfo
         })
+        if vSERVER.checkRendimentos() then
+            AtualizarNui()
+        end
     else
         SetNuiFocus(false, false)
         SendNUIMessage({
@@ -73,8 +76,14 @@ RegisterNUICallback("Comprar",function(data)
     end
 end)
 
+RegisterNUICallback("Vender", function(data)
+    if vSERVER.venderAcoes(data) then
+        AtualizarNui()
+    end
+end)
+
 RegisterNUICallback("Sacar", function(data)
-    if vServer.sacarRendimento(data) then
+    if vSERVER.sacarRendimento(data) then
         AtualizarNui()
     end
 end)

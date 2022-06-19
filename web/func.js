@@ -20,56 +20,70 @@ $(function () {
       if (acoes != undefined) {
         if (userInfo != undefined) {
           if (myAcoes != undefined) {
-            var rendimentos = 0;
-            var qtdAcoes = 0;
-            for (var i = 0; i < myAcoes.length; i++) {
-              var index = -1;
-              for (var j = 0; j < acoes.length; j++) {
-                if (acoes[j].id == myAcoes[i].id_acao)
-                  index = j;
-              }
-              if (index > -1) {
-                rendimentos += (parseInt(acoes[index].rendimento) * parseInt(myAcoes[i].quantidade));
-                qtdAcoes += parseInt(myAcoes[i].quantidade);
-                var data = {
-                  'imagen': acoes[index].image,
-                  'nome': acoes[index].nome,
-                  'qtd': myAcoes[i].quantidade,
-                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                };
-                var dataVender = {
-                  'imagen': acoes[index].image,
-                  'nome': acoes[index].nome,
-                  'qtd': myAcoes[i].quantidade,
-                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                  'id': acoes[index].id
+            if (myAcoes[i].quantidade > 0) {
+              var rendimentos = 0;
+              var qtdAcoes = 0;
+              for (var i = 0; i < myAcoes.length; i++) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == myAcoes[i].id_acao)
+                    index = j;
                 }
-                AddRowToMyTable(data);
-                AddRowToVenderTable(dataVender);
+                if (index > -1) {
+                  rendimentos += (parseInt(acoes[index].rendimento) * parseInt(myAcoes[i].quantidade));
+                  qtdAcoes += parseInt(myAcoes[i].quantidade);
+                  var data = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': myAcoes[i].quantidade,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  };
+                  var dataVender = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': myAcoes[i].quantidade,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'id': acoes[index].id
+                  }
+                  AddRowToMyTable(data);
+                  AddRowToVenderTable(dataVender);
+                }
               }
+              this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+              this.document.getElementById('geralAcoes').textContent = qtdAcoes;
+              this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             }
-            this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            this.document.getElementById('geralAcoes').textContent = qtdAcoes;
-            this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
           }
           if (myExtrato != undefined) {
             for (var i = 0; i < myExtrato.length; i++) {
-              var index = -1;
-              for (var j = 0; j < acoes.length; j++) {
-                if (acoes[j].id == myExtrato[i].id_acao)
-                  index = j;
-              }
-              if (index > -1) {
+              if (myExtrato[i].id_acao == "saque") {
                 var data = {
-                  'imagen': acoes[index].image,
-                  'nome': acoes[index].nome,
+                  'imagen': "https://imgur.com/6HYFTDz.jpeg",
+                  'nome': "Saque",
                   'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
                   'descricao': myExtrato[i].descricao,
                   'tipo': myExtrato[i].tipo,
                 };
                 AddRowToExtratoTable(data);
+              }
+              else {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == myExtrato[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  var data = {
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'descricao': myExtrato[i].descricao,
+                    'tipo': myExtrato[i].tipo,
+                  };
+                  AddRowToExtratoTable(data);
+                }
               }
             }
           }
@@ -111,45 +125,47 @@ $(function () {
         if (acoes != undefined) {
           if (userInfo != undefined) {
             if (myAcoes != undefined) {
-              var rendimentos = 0;
-              var qtdAcoes = 0;
-              for (var i = 0; i < myAcoes.length; i++) {
-                var index = -1;
-                for (var j = 0; j < acoes.length; j++) {
-                  if (acoes[j].id == myAcoes[i].id_acao)
-                    index = j;
-                }
-                if (index > -1) {
-                  rendimentos += (parseInt(acoes[index].rendimento) * parseInt(myAcoes[i].quantidade));
-                  qtdAcoes += parseInt(myAcoes[i].quantidade);
-                  var data = {
-                    'imagen': acoes[index].image,
-                    'nome': acoes[index].nome,
-                    'qtd': myAcoes[i].quantidade,
-                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                  };
-                  var dataVender = {
-                    'imagen': acoes[index].image,
-                    'nome': acoes[index].nome,
-                    'qtd': myAcoes[i].quantidade,
-                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                    'id': acoes[index].id
+              if (myAcoes[i].quantidade > 0) {
+                var rendimentos = 0;
+                var qtdAcoes = 0;
+                for (var i = 0; i < myAcoes.length; i++) {
+                  var index = -1;
+                  for (var j = 0; j < acoes.length; j++) {
+                    if (acoes[j].id == myAcoes[i].id_acao)
+                      index = j;
                   }
-                  AddRowToMyTable(data);
-                  AddRowToVenderTable(dataVender);
+                  if (index > -1) {
+                    rendimentos += (parseInt(acoes[index].rendimento) * parseInt(myAcoes[i].quantidade));
+                    qtdAcoes += parseInt(myAcoes[i].quantidade);
+                    var data = {
+                      'imagen': acoes[index].image,
+                      'nome': acoes[index].nome,
+                      'qtd': myAcoes[i].quantidade,
+                      'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    };
+                    var dataVender = {
+                      'imagen': acoes[index].image,
+                      'nome': acoes[index].nome,
+                      'qtd': myAcoes[i].quantidade,
+                      'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                      'id': acoes[index].id
+                    }
+                    AddRowToMyTable(data);
+                    AddRowToVenderTable(dataVender);
+                  }
                 }
+                this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                this.document.getElementById('geralAcoes').textContent = qtdAcoes;
+                this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
               }
-              this.document.getElementById('geralRendimentos').textContent = rendimentos.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralDispesas').textContent = '-' + parseInt(userInfo.despesas).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralBalanco').textContent = (parseInt(userInfo.rendimentos) - parseInt(userInfo.despesas)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-              this.document.getElementById('geralAcoes').textContent = qtdAcoes;
-              this.document.getElementById('extratoDisponivel').textContent = (parseInt(userInfo.saldo_disponivel)).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             }
             if (myExtrato != undefined) {
               for (var i = 0; i < myExtrato.length; i++) {
                 if (myExtrato[i].id_acao == "saque") {
                   var data = {
-                    'imagen': "",
+                    'imagen': "https://imgur.com/6HYFTDz.jpeg",
                     'nome': "Saque",
                     'valor': parseInt(myExtrato[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
                     'descricao': myExtrato[i].descricao,

@@ -40,6 +40,15 @@ function getMyAcoes(playerId)
 	return nil
 end
 
+function getMyAcoesId(playerId, idAcao)
+	local result = MySQL.Sync.fetchAll("SELECT * FROM dz_nyse_user_acoes WHERE `player_id` = @playerId AND `id_acao` = @idAcao",
+		{ ['@playerId'] = playerId, ["@idAcao"] = idAcao })
+	if result[1] ~= nil then
+		return result[1]
+	end
+	return nil
+end
+
 function getMyExtrato(playerId)
 	local result = MySQL.Sync.fetchAll("SELECT * FROM dz_nyse_extrato WHERE `player_id` = @playerId",
 		{ ['@playerId'] = playerId })
@@ -101,6 +110,11 @@ function updateQtdMyAcoes(idAcao, playerId, qtd)
 		, { ['@qtd'] = qtd, ['@playerId'] = playerId, ['@idAcao'] = idAcao })
 end
 
+function updateRendMyAcoes(idAcao, playerId, last)
+	MySQL.Async.insert("UPDATE dz_nyse_user_acoes SET `ultimo_rendimento` = @last WHERE `player_id` = @playerId AND `id_acao` = @idAcao"
+		, { ['@last'] = last, ['@playerId'] = playerId, ['@idAcao'] = idAcao })
+end
+
 function updateUserInfo(playerId, despesas, rendimentos, saldoDisponivel)
 	MySQL.Async.insert("UPDATE dz_nyse_user SET `saldo_disponivel` = @saldoDisponivel, `despesas` = @despesas, `rendimentos` = @rendimentos WHERE `player_id` = @playerId"
 		,
@@ -140,6 +154,11 @@ function addExtrato(idAcao, tipo, quantidade, valor, descricao, playerId, player
 		,
 		{ ["@idAcao"] = idAcao, ["@tipo"] = tipo, ["@quantidade"] = quantidade, ["@valor"] = valor, ["@descricao"] = descricao,
 			["@playerId"] = playerId, ["@playerName"] = playerName, })
+end
+
+function addVendaAcoes(idAcao, qtd, valor, playerId, playerName)
+	MySQL.Async.insert("INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player_id`, `player_name`) VALUES (@idAcao, @playerName, @qtd, @valor, @playerId, @playerName)"
+		,{ ["@idAcao"] = idAcao, ["@qtd"] = qtd, ["@valor"] = valor, [" @playerId"] = playerId, ["@playerName"] = playerName })
 end
 
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -196,6 +215,17 @@ function paymentAcao(id, qtd, valor, idAcao)
 			end
 		end
 	end
+end
+
+function mysplit (inputstr, sep)
+        if sep == nil then
+                sep = "%s"
+        end
+        local t={}
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+                table.insert(t, str)
+        end
+        return t
 end
 
 function cRP.getAcoes()
@@ -343,6 +373,64 @@ function cRP.sacarRendimento(data)
 				addExtrato("saque", "Saque", 1, data.valor, "Saque de " .. data.valor .. "", user_id,
 						"" .. identity.name .. " " .. identity.name2 .. "")
 				updateUserInfoSaldoDisponivel(user_id, dif)
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function cRP.venderAcoes(data)
+	local source = source
+	local user_id = getPlayerID(source)
+	if user_id then
+		local identity = vRP.getUserIdentity(user_id)
+		local acao = getAcoesId(data.id)
+		if acoe ~= nil then
+			local myAcao = getMyAcoesId(user_id, data.id)
+			if myAcao ~= nil then
+				local dif = parseInt(myAcao.quantidade) - parseInt(data.qtdVenda)
+				if dif > -1 then
+					updateQtdMyAcoes(data.id, user_id, dif)
+					addVendaAcoes(data.id, data.qtdVenda, data.valor, user_id,
+						"" .. identity.name .. " " .. identity.name2 .. "")
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+function cRP.checkRendimentos()
+	local source = source
+	local user_id = getPlayerID(source)
+	if user_id then
+		local userInfo = getUserInfoId(user_id)
+		if userInfo ~= nil then
+			local myAcoes = getMyAcoes(user_id)
+			if myAcoes ~= nil then
+				local rendimento = 0
+				for key,value in pairs(myAcoes) do
+    				local last = value.ultimo_rendimento
+					local split = mysplit(last, "/")
+					local inicio = os.time{year=split[3], month=split[2], day=split[1]}
+					local daysfrom = os.difftime(os.time(), inicio) / (24 * 60 * 60) -- seconds in a day
+					local wholedays = math.floor(daysfrom)
+					if wholedays > 0 then
+						local acao = getAcoesId(value.id_acao)
+						if acao ~= nil then
+							local value = parseInt(value.quantidade) * parseInt(value.rendimento)
+							rendimento = rendimento + value
+							updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
+						end
+					end
+				end
+				local disponivel = parseInt(userInfo.saldo_disponivel) + rendimentos
+				local rendimentosInfo = parseInt(userInfo.rendimentos) + rendimentos
+				updateUserInfoRendimentos(user_id, rendimentosInfo)
+				updateUserInfoSaldoDisponivel(user_id, disponivel)
+				return true
 			end
 		end
 	end

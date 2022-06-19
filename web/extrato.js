@@ -15,7 +15,7 @@ function AddRowToExtratoTable(data) {
     row_1.innerHTML = `<img src="${imagen}" alt = "" > `;
     row_2.innerHTML = `${nome}`;
     row_4.innerHTML = `${descricao}`;
-    if (tipo == 'Venda') {
+    if (tipo == 'Venda' || tipo == 'Saque') {
         row_3.innerHTML = `${valor}`;
         row_5.innerHTML = `<button data-toggle="tooltip" title="" class="pd-setting-ed buy-button" data-original-title="Vender"><i style="color: #00FF00;" class="fa fa-level-up" aria-hidden="true"></i></button>`;
     } else {

@@ -23,7 +23,7 @@ function AddRowToVenderTable(data) {
   row_6.innerHTML = `<input style="width: 140px;" id="${id}Valor" max="2000000" type="number" class="form-control"
                             placeholder="Valor">`;
   row_7.innerHTML = `<button onclick="VenderClick(this)" name="${id}"
-                            data-qtd="${qtd}" data-name="${nome}" data-rendimento="${rendimento}" data-toggle="tooltip" title=""
+                            data-qtd="${qtd}" data-id="${id}" data-name="${nome}" data-rendimento="${rendimento}" data-toggle="tooltip" title=""
                             class="pd-setting-ed buy-button" data-original-title="Vender"><i
                               class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>`;
   row.appendChild(row_1);
@@ -41,7 +41,7 @@ function VenderClick(event) {
   var valor = document.getElementById(name + "Valor").value;
   var qtd = event.getAttribute("data-qtd");
   var qtdVenda = document.getElementById(name + "Qtd").value;
-  var id = event.getAttribute("data-name");
+  var id = event.getAttribute("data-id");
   var data = {
     "nome": nome,
     "valor": valor,
@@ -49,5 +49,5 @@ function VenderClick(event) {
     "id": id,
     "qtdVenda": qtdVenda
   }
-  console.log(data);
+  sendData2("Vender", data);
 }
