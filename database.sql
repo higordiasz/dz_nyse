@@ -4,7 +4,11 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_acoes` (
     `image` varchar(50) NOT NULL,
 	`nome` varchar(50) NOT NULL,
 	`valor` int(50) NOT NULL,
-	`rendimento` varchar(50) NOT NULL,
+	`rendimento` int(50) NOT NULL,
+	`rendimento_max` int(50) NOT NULL,
+	`rendimento_min` int(50) NOT NULL,
+	`r_negativo_max` int(50) NOT NULL,
+	`r_negativo_min` int(50) NOT NULL,
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
