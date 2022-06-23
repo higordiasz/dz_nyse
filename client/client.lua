@@ -89,6 +89,10 @@ RegisterNUICallback("Sacar", function(data)
     end
 end)
 
+RegisterNUICallback("Cancelar", function(data)
+    print('Chamou o cancelar')
+end)
+
 RegisterCommand('nyse', function()
     NuiAction();
 end)

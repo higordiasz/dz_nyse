@@ -87,27 +87,56 @@ $(function () {
               }
             }
           }
-        }
-        if (comprarAcoes != undefined) {
-          for (var i = 0; i < comprarAcoes.length; i++) {
-            if (comprarAcoes[i].quantidade > 0) {
-              var index = -1;
-              for (var j = 0; j < acoes.length; j++) {
-                if (acoes[j].id == comprarAcoes[i].id_acao)
-                  index = j;
+          if (comprarAcoes != undefined) {
+            for (var i = 0; i < comprarAcoes.length; i++) {
+              if (comprarAcoes[i].quantidade > 0) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == comprarAcoes[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  var data = {
+                    'idAcao': comprarAcoes[i].id_acao,
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': comprarAcoes[i].quantidade,
+                    'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'vendedor': comprarAcoes[i].vendedor,
+                    'id': comprarAcoes[i].id,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  };
+                  if (userInfo.player_id == comprarAcoes[i].player_id)
+                    AddRowToTable(data, true);
+                  else
+                    AddRowToTable(data, true);
+                }
               }
-              if (index > -1) {
-                var data = {
-                  'idAcao': comprarAcoes[i].id_acao,
-                  'imagen': acoes[index].image,
-                  'nome': acoes[index].nome,
-                  'qtd': comprarAcoes[i].quantidade,
-                  'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                  'vendedor': comprarAcoes[i].vendedor,
-                  'id': comprarAcoes[i].id,
-                  'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                };
-                AddRowToTable(data);
+            }
+          }
+        }
+        else {
+          if (comprarAcoes != undefined) {
+            for (var i = 0; i < comprarAcoes.length; i++) {
+              if (comprarAcoes[i].quantidade > 0) {
+                var index = -1;
+                for (var j = 0; j < acoes.length; j++) {
+                  if (acoes[j].id == comprarAcoes[i].id_acao)
+                    index = j;
+                }
+                if (index > -1) {
+                  var data = {
+                    'idAcao': comprarAcoes[i].id_acao,
+                    'imagen': acoes[index].image,
+                    'nome': acoes[index].nome,
+                    'qtd': comprarAcoes[i].quantidade,
+                    'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    'vendedor': comprarAcoes[i].vendedor,
+                    'id': comprarAcoes[i].id,
+                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                  };
+                  AddRowToTable(data);
+                }
               }
             }
           }
@@ -194,27 +223,56 @@ $(function () {
                 }
               }
             }
-          }
-          if (comprarAcoes != undefined) {
-            for (var i = 0; i < comprarAcoes.length; i++) {
-              if (comprarAcoes[i].quantidade > 0) {
-                var index = -1;
-                for (var j = 0; j < acoes.length; j++) {
-                  if (acoes[j].id == comprarAcoes[i].id_acao)
-                    index = j;
+            if (comprarAcoes != undefined) {
+              for (var i = 0; i < comprarAcoes.length; i++) {
+                if (comprarAcoes[i].quantidade > 0) {
+                  var index = -1;
+                  for (var j = 0; j < acoes.length; j++) {
+                    if (acoes[j].id == comprarAcoes[i].id_acao)
+                      index = j;
+                  }
+                  if (index > -1) {
+                    var data = {
+                      'idAcao': comprarAcoes[i].id_acao,
+                      'imagen': acoes[index].image,
+                      'nome': acoes[index].nome,
+                      'qtd': comprarAcoes[i].quantidade,
+                      'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                      'vendedor': comprarAcoes[i].vendedor,
+                      'id': comprarAcoes[i].id,
+                      'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    };
+                    if (userInfo.player_id == comprarAcoes[i].player_id)
+                      AddRowToTable(data, true);
+                    else
+                      AddRowToTable(data, true);
+                  }
                 }
-                if (index > -1) {
-                  var data = {
-                    'idAcao': comprarAcoes[i].id_acao,
-                    'imagen': acoes[index].image,
-                    'nome': acoes[index].nome,
-                    'qtd': comprarAcoes[i].quantidade,
-                    'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                    'vendedor': comprarAcoes[i].vendedor,
-                    'id': comprarAcoes[i].id,
-                    'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
-                  };
-                  AddRowToTable(data);
+              }
+            }
+          }
+          else {
+            if (comprarAcoes != undefined) {
+              for (var i = 0; i < comprarAcoes.length; i++) {
+                if (comprarAcoes[i].quantidade > 0) {
+                  var index = -1;
+                  for (var j = 0; j < acoes.length; j++) {
+                    if (acoes[j].id == comprarAcoes[i].id_acao)
+                      index = j;
+                  }
+                  if (index > -1) {
+                    var data = {
+                      'idAcao': comprarAcoes[i].id_acao,
+                      'imagen': acoes[index].image,
+                      'nome': acoes[index].nome,
+                      'qtd': comprarAcoes[i].quantidade,
+                      'valor': parseInt(comprarAcoes[i].valor).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                      'vendedor': comprarAcoes[i].vendedor,
+                      'id': comprarAcoes[i].id,
+                      'rendimento': parseInt(acoes[index].rendimento).toLocaleString('en-US', { style: 'currency', currency: 'USD' }),
+                    };
+                    AddRowToTable(data);
+                  }
                 }
               }
             }

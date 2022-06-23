@@ -1,4 +1,4 @@
-function AddRowToTable(data) {
+function AddRowToTable(data, my = false) {
     var tbody = document.getElementById("tableComprarBody");
     var nome = data.nome;
     var valor = data.valor;
@@ -38,6 +38,14 @@ function AddRowToTable(data) {
     row.appendChild(row_5);
     row.appendChild(row_6);
     row.appendChild(row_7);
+    if (my) {
+        var row_9 = document.createElement('td');
+        row_9.innerHTML = `<button onclick="CancelarClick(this)" name="${id}" data-idAcao="${idAcao}" data-vendedor="${vendedor}" data-vendaID="${id}"
+                            data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
+                            class="pd-setting-ed buy-button" data-original-title="Cancelar"><i
+                              class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
+        row.appendChild(row_9);
+    }
     tbody.appendChild(row);
 }
 
@@ -61,4 +69,26 @@ function ComprarClick(event) {
         "total": (parseInt(valor) * parseInt(qtdCompra))
     }
     sendData2("Comprar", data);
+}
+
+function CancelarClick(event) {
+    var nome = event.getAttribute("data-name");
+    var valor = valorToInt(event.getAttribute("data-valor"));
+    var qtd = event.getAttribute("data-qtd");
+    var vendedor = event.getAttribute("data-vendedor");
+    var id = event.getAttribute("data-vendaID");
+    var element = document.getElementById(id);
+    var qtdCompra = element.value;
+    var idAcao = event.getAttribute("data-idAcao");
+    var data = {
+        "idAcao": idAcao,
+        "vendedor": vendedor,
+        "nome": nome,
+        "valor": valor,
+        "qtd": qtd,
+        "id": id,
+        "compra": qtdCompra,
+        "total": (parseInt(valor) * parseInt(qtdCompra))
+    }
+    sendData2("Cancelar", data);
 }

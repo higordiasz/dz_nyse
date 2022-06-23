@@ -442,19 +442,28 @@ function cRP.checkRendimentos()
 					if wholedays > 0 then
 						local acao = getAcoesId(value.id_acao)
 						if acao ~= nil then
-							local r = randomNumber()
-							if r < 200 then
-								local rend = math.random(min, max)
-								local valueRendimento = parseInt(value.quantidade) * parseInt(acao.rendimento)
-							rendimento = rendimento + (valueRendimento * wholedays)
-							updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
-							addExtrato(value.id_acao, "Rendimento", 1, rendimento, "Rendimento de " ..rendimento.. " da acao "..acao.nome.."", user_id,
-								"" .. identity.name .. " " .. identity.name2 .. "")
-							else
-								if r > 950 then
-
+							for i = wholedays, 1, -1 do
+    							local r = randomNumber()
+								if r < 200 then
+									local rend = math.random(acao.r_negativo_min, acao.r_negativo_max)
+									rendimento = rendimento + rend
+									updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
+									addExtrato(value.id_acao, "Perca", 1, rend, "Perca de " ..rend.. " da acao "..acao.nome.."", user_id,
+									"" .. identity.name .. " " .. identity.name2 .. "")
 								else
-
+									if r > 950 then
+										local rend = math.random(acao.r_negativo_min, acao.r_negativo_max) * 2
+										rendimento = rendimento + rend
+										updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
+										addExtrato(value.id_acao, "Rendimento", 1, rend, "Rendimento de " ..rend.. " da acao "..acao.nome.."", user_id,
+										"" .. identity.name .. " " .. identity.name2 .. "")
+									else
+										local rend = math.random(acao.r_negativo_min, acao.r_negativo_max)
+										rendimento = rendimento + rend
+										updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
+										addExtrato(value.id_acao, "Rendimento", 1, rend, "Rendimento de " ..rend.. " da acao "..acao.nome.."", user_id,
+										"" .. identity.name .. " " .. identity.name2 .. "")
+									end
 								end
 							end
 						end
