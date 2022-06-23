@@ -452,13 +452,13 @@ function cRP.checkRendimentos()
 									"" .. identity.name .. " " .. identity.name2 .. "")
 								else
 									if r > 950 then
-										local rend = math.random(acao.r_negativo_min, acao.r_negativo_max) * 2
+										local rend = math.random(acao.rendimento_min, acao.rendimento_max) * 2
 										rendimento = rendimento + rend
 										updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
 										addExtrato(value.id_acao, "Rendimento", 1, rend, "Rendimento de " ..rend.. " da acao "..acao.nome.."", user_id,
 										"" .. identity.name .. " " .. identity.name2 .. "")
 									else
-										local rend = math.random(acao.r_negativo_min, acao.r_negativo_max)
+										local rend = math.random(acao.rendimento_min, acao.rendimento_max)
 										rendimento = rendimento + rend
 										updateRendMyAcoes(value.id_acao, user_id, os.date('%d/%m/%Y'))
 										addExtrato(value.id_acao, "Rendimento", 1, rend, "Rendimento de " ..rend.. " da acao "..acao.nome.."", user_id,
