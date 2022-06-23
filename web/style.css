@@ -26,9 +26,42 @@
     border-radius: 20px;
 }
 
+.c3-axis-x .tick {
+    display: none;
+}
 
+.c3-tooltip-container {
+    max-height: none !important;
+}
 
+.c3-tooltip {
+    box-shadow: none;
+    width: 100%;
+    color: black;
+}
 
+.c3-tooltip tr {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.c3-tooltip td.name {
+    border-left: none !important;
+}
+
+.c3-tooltip tr:first-child {
+    display: none;
+}
+
+.c3-tooltip-container .c3-chart-line {
+    opacity: 1 !important;
+}
+
+.c3 path,
+.c3 line,
+.tick text {
+    stroke: #f1f1f1;
+}
 
 /*----------------------------------------*/
 /*  1.  Theme default CSS

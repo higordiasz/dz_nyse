@@ -55,6 +55,14 @@
   <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
   <!-- style CSS
 		============================================ -->
+  <!-- Load c3.css -->
+  <link href="css/c3/c3.min.css" rel="stylesheet">
+
+  <!-- Load d3.js and c3.js -->
+  <script src="js/c3-charts/d3.min.js" charset="utf-8"></script>
+  <script src="js/c3-charts/c3.min.js"></script>
+
+
   <link rel="stylesheet" href="style.css">
   <!-- responsive CSS
 		============================================ -->
@@ -78,6 +86,7 @@
             <li class="active"><a href="#geral">Geral</a></li>
             <li><a href="#comprar"> Comprar</a></li>
             <li><a href="#vender">Vender</a></li>
+            <li><a href="#ouro">Ouro</a></li>
             <li><a href="#extrato">Extrato</a></li>
           </ul>
         </div>
@@ -238,6 +247,82 @@
           </div>
         </div>
       </div>
+      <div id="ouro" class="tabe-pane fade">
+        <div class="section-admin container-fluid">
+          <div class="row admin text-center">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
+                  <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
+                    <h4 class="text-left text-uppercase"><b>Quantidade</b></h4>
+                    <div class="row vertical-center-box vertical-center-box-tablet">
+                      <div class="text-left col-xs-3 mar-bot-15">
+                      </div>
+                      <div class="col-xs-9 cus-gh-hd-pro">
+                        <h2 class="text-right no-margin" id="ouroQuantidade">$0</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
+                  <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
+                    <h4 class="text-left text-uppercase"><b>Comprar</b></h4>
+                    <div class="row vertical-center-box vertical-center-box-tablet">
+                      <div class="text-left col-xs-7 mar-bot-15">
+                        <input style="height: 30px; width: 95%; margin: auto !important; margin: 0px !important;"
+                          id="comprar-ouro" type="number" class="form-control" placeholder="Quantidade">
+                      </div>
+                      <div class="col-xs-5 cus-gh-hd-pro text-right">
+                        <button style="color: #ffffff; margin-right: 20px;" onclick="ComprarOuro(this)"
+                          name="comprar-ouro" data-toggle="tooltip" title="" class="pd-setting-ed buy-button"
+                          data-original-title="Comprar"><i class="fa fa-money" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-bottom:1px;">
+                  <div class="admin-content analysis-progrebar-ctn res-mg-t-30">
+                    <h4 class="text-left text-uppercase"><b>Vender</b></h4>
+                    <div class="row vertical-center-box vertical-center-box-tablet">
+                      <div class="text-left col-xs-7 mar-bot-15">
+                        <input style="height: 30px; width: 95%; margin: auto !important; margin: 0px !important;"
+                          id="vender-ouro" type="number" class="form-control" placeholder="Quantidade">
+                      </div>
+                      <div class="col-xs-5 cus-gh-hd-pro text-right">
+                        <button style="color: #ffffff; margin-right: 20px;" onclick="VenderOuro(this)"
+                          name="vender-ouro" data-toggle="tooltip" title="" class="pd-setting-ed buy-button"
+                          data-original-title="Vender"><i class="fa fa-money" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-status mg-tb-30">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                  <div
+                    style="align-items: center !important; align-content: center !important; flex: 1; margin: 0 auto;">
+                    <h4 class="col-lg-11 col-md-11 col-sm-11" id="valor-atual-ouro">Valor Atual do Ouro: $0</h4>
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <button onclick="AtualizarClick()" data-toggle="tooltip" title="" class="pd-setting-ed buy-button"
+                        data-original-title="Atualizar"><i style="color: #FFFFFF;" class="fa fa-refresh"
+                          aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                  <div id="tabela-ouro">
+                  </div>
+                  <div style="padding: 15px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div id="extrato" class="tabe-pane fade">
         <div class="section-admin container-fluid">
           <div class="row admin text-center">
@@ -365,6 +450,7 @@
   <script src="comprar.js"></script>
   <script src="vender.js"></script>
   <script src="func.js"></script>
+  <script src="ouro.js"></script>
   <script src="extrato.js"></script>
   <script src="func.js"></script>
 </body>

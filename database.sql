@@ -54,8 +54,31 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_user` (
     `saldo_disponivel` int(50) NOT NULL,
 	`despesas` int(50) NOT NULL,
 	`rendimentos` int(50) NOT NULL,
+	`ouro` int(50) NOT NULL,
 	`player_id` varchar(50) NOT NULL,
 	`player_name` varchar(50) NOT NULL,
+    PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `dz_nyse_gold`;
+CREATE TABLE IF NOT EXISTS `dz_nyse_gold` (
+	`id` int(50) NOT NULL AUTO_INCREMENT,
+    `nome` varchar(50) NOT NULL,
+	`imagen` varchar(50) NOT NULL,
+	`atual` int(50) NOT NULL,
+	`last` varchar(50) NOT NULL,
+	`cotacao01` int(50) NOT NULL,
+	`cotacao02` int(50) NOT NULL,
+	`cotacao03` int(50) NOT NULL,
+	`cotacao04` int(50) NOT NULL,
+	`cotacao05` int(50) NOT NULL,
+	`cotacao06` int(50) NOT NULL,
+	`cotacao07` int(50) NOT NULL,
+	`cotacao08` int(50) NOT NULL,
+	`cotacao09` int(50) NOT NULL,
+	`cotacao10` int(50) NOT NULL,
+	`min` int(50) NOT NULL,
+	`max` int(50) NOT NULL,
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -77,7 +100,4 @@ INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player
 ('24701','SecuroServ','30','5845','-1','Governo'),
 ('annis01','SecuroServ','150','1895','-1','Governo');
 
-	`rendimento_max` int(50) NOT NULL,
-	`rendimento_min` int(50) NOT NULL,
-	`r_negativo_max` int(50) NOT NULL,
-	`r_negativo_min` int(50) NOT NULL,
+INSERT INTO dz_nyse_gold (`nome`, `imagen`, `atual`, `last`, `cotacao01`, `cotacao02`, `cotacao03`, `cotacao04`, `cotacao05`, `cotacao06`, `cotacao07`, `cotacao08`, `cotacao09`, `cotacao10`, `min`, `max`) VALUES ('ouro24k', 'https://imgur.com/kw0ZxTf.jpeg', '325', '1656021033', '325', '400', '333', '326', '365', '310', '394', '390', '345', '365', '310', '410');

@@ -2,7 +2,37 @@ $(function () {
   var actionContainer = $(".actionmenu");
 
   window.onload = function () {
-    actionContainer.fadeOut();
+    //actionContainer.fadeOut();
+    console.log('oi')
+    var chart = c3.generate({
+      bindto: '#tabela-ouro',
+      data: {
+        columns: [
+          ['Valor', 30, 200, 100, 400, 150, 250, 250, 250, 250, 250]
+        ],
+        types: {
+          Valor: 'area',
+        },
+        colors: {
+          Valor: '#f1f1f1',
+        },
+      },
+      size: {
+        height: 360
+      },
+      color: {
+        pattern: ["transparent", "#01d8dd", "#ff6400", "#ff56d5", "#808080"]
+      },
+      tooltip: {
+        grouped: false,
+        format: {},
+        show: true,
+      },
+      legend: {
+        show: false,
+      }
+    });
+    console.log('oi2')
   };
 
   window.addEventListener('message', function (event) {
@@ -16,6 +46,7 @@ $(function () {
       var myAcoes = event.data.myAcoes;
       var myExtrato = event.data.myExtrato;
       var comprarAcoes = event.data.comprarAcoes;
+      var ouroValues = event.data.ouro;
       var userInfo = event.data.userInfo;
       if (acoes != undefined) {
         if (userInfo != undefined) {
@@ -113,6 +144,9 @@ $(function () {
                 }
               }
             }
+          }
+          if (ouroValues != undefined) {
+
           }
         }
         else {
