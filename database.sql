@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_user` (
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO dz_nyse_acoes (`id`, `image`, `nome`, `valor`, `rendimento`) VALUES('maze01', 'https://i.imgur.com/yr7Vmbf.jpeg', 'Maze Bank', '950', '55'),
-('karin01', 'https://imgur.com/39Zo6sg.jpeg', 'Karin', '2355', '98'),
-('securo01', 'https://imgur.com/SUGnAIS.jpeg', 'SecuroServ', '1425', '75'),
-('fruit01', 'https://imgur.com/OvtCZDq.jpeg', 'Fruit Computers', '4155', '230'),
-('emperor01', 'https://imgur.com/C30HbnF.jpeg', 'Emperor', '2085', '125'),
-('dynasty01', 'https://imgur.com/kUhbplA.jpeg', 'Dynasty 8', '3975', '265'),
-('24701', 'https://imgur.com/S0IChaO.jpeg', '24/7', '5845', '375'),
-('annis01', 'https://imgur.com/DEUxXah.jpeg', 'Annis', '1895', '120');
+INSERT INTO dz_nyse_acoes (`id`, `image`, `nome`, `valor`, `rendimento`, `rendimento_max`, `rendimento_min`, `r_negativo_max`, `r_negativo_min`) VALUES('maze01', 'https://i.imgur.com/yr7Vmbf.jpeg', 'Maze Bank', '950', '55', '70', '30', '40', '10'),
+('karin01', 'https://imgur.com/39Zo6sg.jpeg', 'Karin', '2355', '98', '105', '55', '55', '10'),
+('securo01', 'https://imgur.com/SUGnAIS.jpeg', 'SecuroServ', '1425', '75', '90', '45', '65', '15'),
+('fruit01', 'https://imgur.com/OvtCZDq.jpeg', 'Fruit Computers', '4155', '230', '290', '150', '110', '35'),
+('emperor01', 'https://imgur.com/C30HbnF.jpeg', 'Emperor', '2085', '125', '150', '65', '80', '20'),
+('dynasty01', 'https://imgur.com/kUhbplA.jpeg', 'Dynasty 8', '3975', '265', '315', '210', '250', '150'),
+('24701', 'https://imgur.com/S0IChaO.jpeg', '24/7', '5845', '375', '435', '325', '350', '285'),
+('annis01', 'https://imgur.com/DEUxXah.jpeg', 'Annis', '1895', '120', '165', '85', '115', '45');
 
 INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player_id`, `player_name`) VALUES ('maze01','Maze Bank','150','950','-1','Governo'),
 ('karin01','Karin','100','2355','-1','Governo'),
@@ -76,3 +76,8 @@ INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player
 ('dynasty01','SecuroServ','80','3975','-1','Governo'),
 ('24701','SecuroServ','30','5845','-1','Governo'),
 ('annis01','SecuroServ','150','1895','-1','Governo');
+
+	`rendimento_max` int(50) NOT NULL,
+	`rendimento_min` int(50) NOT NULL,
+	`r_negativo_max` int(50) NOT NULL,
+	`r_negativo_min` int(50) NOT NULL,
