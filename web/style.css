@@ -34,23 +34,21 @@
     max-height: none !important;
 }
 
+.c3-tooltip-div {
+    background-color: #152036;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid;
+    border-color: #f1f1f1;
+    border-radius: 10px;
+}
+
 .c3-tooltip {
     box-shadow: none;
     width: 100%;
-    color: black;
-}
-
-.c3-tooltip tr {
-    border-left: none !important;
-    border-right: none !important;
-}
-
-.c3-tooltip td.name {
-    border-left: none !important;
-}
-
-.c3-tooltip tr:first-child {
-    display: none;
+    background-color: #152036;
 }
 
 .c3-tooltip-container .c3-chart-line {

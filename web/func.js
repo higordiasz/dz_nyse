@@ -3,36 +3,7 @@ $(function () {
 
   window.onload = function () {
     //actionContainer.fadeOut();
-    console.log('oi')
-    var chart = c3.generate({
-      bindto: '#tabela-ouro',
-      data: {
-        columns: [
-          ['Valor', 30, 200, 100, 400, 150, 250, 250, 250, 250, 250]
-        ],
-        types: {
-          Valor: 'area',
-        },
-        colors: {
-          Valor: '#f1f1f1',
-        },
-      },
-      size: {
-        height: 360
-      },
-      color: {
-        pattern: ["transparent", "#01d8dd", "#ff6400", "#ff56d5", "#808080"]
-      },
-      tooltip: {
-        grouped: false,
-        format: {},
-        show: true,
-      },
-      legend: {
-        show: false,
-      }
-    });
-    console.log('oi2')
+    PreencherTabelaOuro('300', '255', '354', '386', '315', '410', '360', '325', '345', '521');
   };
 
   window.addEventListener('message', function (event) {
@@ -392,6 +363,37 @@ $(function () {
     tbody.appendChild(row);
   }
 })
+
+function PreencherTabelaOuro(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) {
+  var chart = c3.generate({
+    bindto: '#tabela-ouro',
+    data: {
+      columns: [
+        ['Valor', v1, v2, v3, v4, v5, v6, v7, v8, v9, v10]
+      ],
+      types: {
+        Valor: 'area',
+      },
+      colors: {
+        Valor: '#f1f1f1',
+      },
+    },
+    size: {
+      height: 360
+    },
+    color: {
+      pattern: ["transparent", "#01d8dd", "#ff6400", "#ff56d5", "#808080"]
+    },
+    tooltip: {
+      contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
+        return "<div class='c3-tooltip-div'><font color='#f1f1f1'> $ " + d[0].value + "</font></div>";
+      }
+    },
+    legend: {
+      show: false,
+    }
+  });
+}
 
 function AtualizarClick() {
   sendData2("Atualizar", "atualizar");
