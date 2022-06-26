@@ -3,7 +3,7 @@ $(function () {
 
   window.onload = function () {
     actionContainer.fadeOut();
-    //PreencherTabelaOuro(100, 522, 645, 125, 485, 126, 125, 354, 365, 125);
+    //PreencherTabelaOuro(100, 522, 645, 125, 485, 126, 125, 354, 365, 154);
   };
 
   window.addEventListener('message', function (event) {
@@ -111,7 +111,7 @@ $(function () {
                   if (userInfo.player_id == comprarAcoes[i].player_id)
                     AddRowToTable(data, true);
                   else
-                    AddRowToTable(data, true);
+                    AddRowToTable(data);
                 }
               }
             }
@@ -254,7 +254,7 @@ $(function () {
                     if (userInfo.player_id == comprarAcoes[i].player_id)
                       AddRowToTable(data, true);
                     else
-                      AddRowToTable(data, true);
+                      AddRowToTable(data);
                   }
                 }
               }
@@ -390,7 +390,6 @@ function PreencherTabelaOuro(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) {
     },
     size: {
       height: 360,
-      width: 1000,
     },
     color: {
       pattern: ["transparent", "#01d8dd", "#ff6400", "#ff56d5", "#808080"]

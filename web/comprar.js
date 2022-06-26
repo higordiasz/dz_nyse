@@ -30,6 +30,14 @@ function AddRowToTable(data, my = false) {
                             class="pd-setting-ed buy-button" data-original-title="Comprar"><i
                               class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
     row_8.innerHTML = `${rendimento}`;
+    if (my) {
+        //var row_9 = document.createElement('td');
+        row_7.innerHTML += `<button onclick="CancelarClick(this)" name="${id}" data-idAcao="${idAcao}" data-vendedor="${vendedor}" data-vendaID="${id}"
+                            data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
+                            class="pd-setting-ed buy-button" data-original-title="Cancelar"><i
+                              class="fa fa-times" aria-hidden="true"></i></button>`;
+        //row.appendChild(row_9);
+    }
     row.appendChild(row_1);
     row.appendChild(row_2);
     row.appendChild(row_3);
@@ -38,14 +46,6 @@ function AddRowToTable(data, my = false) {
     row.appendChild(row_5);
     row.appendChild(row_6);
     row.appendChild(row_7);
-    if (my) {
-        var row_9 = document.createElement('td');
-        row_9.innerHTML = `<button onclick="CancelarClick(this)" name="${id}" data-idAcao="${idAcao}" data-vendedor="${vendedor}" data-vendaID="${id}"
-                            data-valor="${valor}" data-qtd="${qtd}" data-name="${nome}" data-toggle="tooltip" title=""
-                            class="pd-setting-ed buy-button" data-original-title="Cancelar"><i
-                              class="fa fa-shopping-cart" aria-hidden="true"></i></button>`;
-        row.appendChild(row_9);
-    }
     tbody.appendChild(row);
 }
 
