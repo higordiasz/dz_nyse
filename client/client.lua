@@ -24,6 +24,7 @@ function NuiAction()
         local myExtrato = vSERVER.getMyExtrato()
         local comprarAcoes = vSERVER.getComprarAcoes()
         local userInfo = vSERVER.getUserInfo()
+        local ouro = vSERVER.getOuro()
         SetNuiFocus(true, true)
         SendNUIMessage({
             action = "showMenu",
@@ -31,7 +32,8 @@ function NuiAction()
             myAcoes = myAcoes,
             myExtrato = myExtrato,
             comprarAcoes = comprarAcoes,
-            userInfo = userInfo
+            userInfo = userInfo,
+            ouro = ouro
         })
         if vSERVER.checkRendimentos() then
             AtualizarNui()
@@ -50,6 +52,7 @@ function AtualizarNui()
         local myExtrato = vSERVER.getMyExtrato()
         local comprarAcoes = vSERVER.getComprarAcoes()
         local userInfo = vSERVER.getUserInfo()
+        local ouro = vSERVER.getOuro()
         SetNuiFocus(true, true)
         SendNUIMessage({
             action = "atualizar",
@@ -57,7 +60,8 @@ function AtualizarNui()
             myAcoes = myAcoes,
             myExtrato = myExtrato,
             comprarAcoes = comprarAcoes,
-            userInfo = userInfo
+            userInfo = userInfo,
+            ouro = ouro
         })
 end
 
@@ -100,4 +104,22 @@ end)
 RegisterNetEvent("dz_nyse:Update")
 AddEventHandler("dz_nyse:Update",function()
 	AtualizarNui()
+end)
+
+RegisterNetEvent("dz_nyse:UpdateOuro")
+AddEventHandler("dz_nyse:UpdateOuro",function()
+    if nui then
+        AtualizarNui()
+    end
+end)
+
+--Atualizar a NUI a cada 5min se estiver aberta
+Citizen.CreateThread(function()
+	while true do
+		-- Every 5min functions
+		Citizen.Wait(300000)
+		if nui then
+            AtualizarNui()
+        end
+	end
 end)

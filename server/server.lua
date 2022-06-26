@@ -101,6 +101,18 @@ function getUserInfoId(playerId)
 	return nil
 end
 
+function getOuro()
+	local result = MySQL.Sync.fetchAll("SELECT * FROM dz_nyse_gold")
+	if result[1] ~= nil then
+		return result[1]
+	end
+	return nil
+end
+
+function updateOuroValues(value1, value2, value3, value4, value5, value6, value7, value8, value9, value10)
+	MySQL.Sync.insert("UPDATE dz_nyse_gold SET `atual` = @value1, `last` = @value2, `cotacao01` = @value1, `cotacao02` = @value2, `cotacao03` = @value3, `cotacao04` = @value4, `cotacao05` = @value5, `cotacao06` = @value6, `cotacao07` = @value7, `cotacao08` = @value8, `cotacao09` = @value9, `cotacao10` = @value10", { ["@qtd"] = qtd, ["@id"] = id, ["@value1"] = value1, ["@value2"] = value2, ["@value3"] = value3, ["@value4"] = value4, ["@value5"] = value5, ["@value6"] = value6, ["@value7"] = value7, ["@value8"] = value8, ["@value9"] = value9, ["@value10"] = value10 })
+end
+
 function updateQtdToComprarId(id, qtd)
 	MySQL.Sync.insert("UPDATE dz_nyse_venda SET `quantidade` = @qtd WHERE `id` = @id", { ["@qtd"] = qtd, ["@id"] = id })
 end
@@ -145,7 +157,7 @@ function addMyAcoes(idAcao, quantidade, ultimoRendimento, playerId, playerName)
 end
 
 function addUserInfo(playerId, playerName, despesas)
-	MySQL.Sync.insert("INSERT INTO dz_nyse_user (`saldo_disponivel`, `despesas`, `rendimentos`, `player_id`, `player_name`) VALUES ('0', @despesas, '0', @playerId, @playerName)"
+	MySQL.Sync.insert("INSERT INTO dz_nyse_user (`saldo_disponivel`, `despesas`, `rendimentos`, `ouro`, `player_id`, `player_name`) VALUES ('0', @despesas, '0', '0', @playerId, @playerName)"
 		, { ["@despesas"] = despesas, ["@playerId"] = playerId, ["@playerName"] = playerName })
 end
 
@@ -169,11 +181,12 @@ end
 -- THREADS
 -----------------------------------------------------------------------------------------------------------------------------------------
 
+--Atualizar o valor do ouro a cara 30min
 Citizen.CreateThread(function()
 	while true do
 		-- Every 30min functions
-		atualizarOuro()
 		Citizen.Wait(1800000)
+		atualizarOuro()
 	end
 end)
 
@@ -181,9 +194,16 @@ end)
 -- INTERACAO
 -----------------------------------------------------------------------------------------------------------------------------------------
 
-function atualizarOuro() {
-
-}
+function atualizarOuro()
+	local ouro = getOuro()
+	if ouro then
+		local min = parseInt(ouro.min)
+		local max = parseInt(ouro.max)
+		math.randomseed(os.time())
+		local newValue = math.floor(math.abs(math.random(min, max)))
+		updateOuroValues(newValue, ouro.cotacao01, ouro.cotacao02, ouro.cotacao03, ouro.cotacao04, ouro.cotacao05, ouro.cotacao06, ouro.cotacao07, ouro.cotacao08, ouro.cotacao09)
+	end
+end
 
 function checkHaveQtdToBuy(idVenda, qtd)
 	local result = getComprarAcoesById(idVenda)
@@ -307,6 +327,16 @@ function cRP.getUserInfo()
 	if user_id then
 		local userInfo = getUserInfo(user_id)
 		return userInfo
+	end
+	return nil
+end
+
+function cRP.getOuro()
+	local source = source
+	local user_id = getPlayerID(source)
+	if user_id then
+		local ouro = getOuro()
+		return ouro
 	end
 	return nil
 end
@@ -494,4 +524,12 @@ function cRP.checkRendimentos()
 		end
 	end
 	return false
+end
+
+function cRP.comprarOuro(data)
+
+end
+
+function cRP.venderOuro(data)
+
 end

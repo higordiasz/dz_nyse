@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_gold` (
     `nome` varchar(50) NOT NULL,
 	`imagen` varchar(50) NOT NULL,
 	`atual` int(50) NOT NULL,
-	`last` varchar(50) NOT NULL,
+	`last` int(50) NOT NULL,
 	`cotacao01` int(50) NOT NULL,
 	`cotacao02` int(50) NOT NULL,
 	`cotacao03` int(50) NOT NULL,
@@ -100,4 +100,4 @@ INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player
 ('24701','SecuroServ','30','5845','-1','Governo'),
 ('annis01','SecuroServ','150','1895','-1','Governo');
 
-INSERT INTO dz_nyse_gold (`nome`, `imagen`, `atual`, `last`, `cotacao01`, `cotacao02`, `cotacao03`, `cotacao04`, `cotacao05`, `cotacao06`, `cotacao07`, `cotacao08`, `cotacao09`, `cotacao10`, `min`, `max`) VALUES ('ouro24k', 'https://imgur.com/kw0ZxTf.jpeg', '325', '1656021033', '325', '400', '333', '326', '365', '310', '394', '390', '345', '365', '310', '410');
+INSERT INTO dz_nyse_gold (`nome`, `imagen`, `atual`, `last`, `cotacao01`, `cotacao02`, `cotacao03`, `cotacao04`, `cotacao05`, `cotacao06`, `cotacao07`, `cotacao08`, `cotacao09`, `cotacao10`, `min`, `max`) VALUES ('ouro24k', 'https://imgur.com/kw0ZxTf.jpeg', '325', '1656021033', '325', '400', '333', '326', '365', '310', '394', '390', '345', '365', '110', '355');

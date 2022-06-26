@@ -2,8 +2,7 @@ $(function () {
   var actionContainer = $(".actionmenu");
 
   window.onload = function () {
-    //actionContainer.fadeOut();
-    PreencherTabelaOuro('300', '255', '354', '386', '315', '410', '360', '325', '345', '521');
+    actionContainer.fadeOut();
   };
 
   window.addEventListener('message', function (event) {
@@ -117,7 +116,7 @@ $(function () {
             }
           }
           if (ouroValues != undefined) {
-
+            AtualizarValoresOuro(ouroValues, userInfo);
           }
         }
         else {
@@ -145,6 +144,9 @@ $(function () {
               }
             }
           }
+          if (ouroValues != undefined) {
+            AtualizarValoresOuroNoInfo(ouroValues);
+          }
         }
       }
     } else {
@@ -157,6 +159,7 @@ $(function () {
         var myAcoes = event.data.myAcoes;
         var myExtrato = event.data.myExtrato;
         var comprarAcoes = event.data.comprarAcoes;
+        var ouroValues = event.data.ouro;
         var userInfo = event.data.userInfo;
         if (acoes != undefined) {
           if (userInfo != undefined) {
@@ -255,6 +258,9 @@ $(function () {
                 }
               }
             }
+            if (ouroValues != undefined) {
+              AtualizarValoresOuro(ouroValues, userInfo);
+            }
           }
           else {
             if (comprarAcoes != undefined) {
@@ -280,6 +286,9 @@ $(function () {
                   }
                 }
               }
+            }
+            if (ouroValues != undefined) {
+              AtualizarValoresOuroNoInfo(ouroValues);
             }
           }
         }
