@@ -308,16 +308,6 @@ $(function () {
     }
   };
 
-  function sendData(name, data) {
-    $.post("http://dz_nyse/" + name, JSON.stringify(data), function (
-      datab
-    ) {
-      if (datab != "ok") {
-        console.log(datab);
-      }
-    });
-  }
-
   function ClearRowMyTable() {
     var linhas = document.getElementsByName('linhaMy');
     var max = linhas.length;
@@ -406,7 +396,7 @@ function PreencherTabelaOuro(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) {
 }
 
 function AtualizarClick() {
-  sendData2("Atualizar", "atualizar");
+  sendData("Atualizar", "atualizar");
 }
 
 function Sacar(data) {
@@ -414,10 +404,10 @@ function Sacar(data) {
   var data = {
     "valor": valor
   }
-  sendData2("Sacar", data);
+  sendData("Sacar", data);
 }
 
-function sendData2(name, data) {
+function sendData(name, data) {
   $.post("http://dz_nyse/" + name, JSON.stringify(data), function (
     datab
   ) {

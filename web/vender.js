@@ -49,5 +49,5 @@ function VenderClick(event) {
     "id": id,
     "qtdVenda": qtdVenda
   }
-  sendData2("Vender", data);
+  sendData("Vender", data);
 }

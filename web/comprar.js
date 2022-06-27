@@ -68,7 +68,7 @@ function ComprarClick(event) {
         "compra": qtdCompra,
         "total": (parseInt(valor) * parseInt(qtdCompra))
     }
-    sendData2("Comprar", data);
+    sendData("Comprar", data);
 }
 
 function CancelarClick(event) {
@@ -90,5 +90,5 @@ function CancelarClick(event) {
         "compra": qtdCompra,
         "total": (parseInt(valor) * parseInt(qtdCompra))
     }
-    sendData2("Cancelar", data);
+    sendData("Cancelar", data);
 }
