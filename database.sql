@@ -79,6 +79,9 @@ CREATE TABLE IF NOT EXISTS `dz_nyse_gold` (
 	`cotacao10` int(50) NOT NULL,
 	`min` int(50) NOT NULL,
 	`max` int(50) NOT NULL,
+	`qtd_disponivel` int(50) NOT NULL,
+	`qtd_max` int(50) NOT NULL,
+	`max_player` int(50) NOT NULL,
     PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -100,4 +103,4 @@ INSERT INTO dz_nyse_venda (`id_acao`, `vendedor`, `quantidade`, `valor`, `player
 ('24701','SecuroServ','30','5845','-1','Governo'),
 ('annis01','SecuroServ','150','1895','-1','Governo');
 
-INSERT INTO dz_nyse_gold (`nome`, `imagen`, `atual`, `last`, `cotacao01`, `cotacao02`, `cotacao03`, `cotacao04`, `cotacao05`, `cotacao06`, `cotacao07`, `cotacao08`, `cotacao09`, `cotacao10`, `min`, `max`) VALUES ('ouro24k', 'https://imgur.com/kw0ZxTf.jpeg', '325', '1656021033', '325', '400', '333', '326', '365', '310', '394', '390', '345', '365', '110', '355');
+INSERT INTO dz_nyse_gold (`nome`, `imagen`, `atual`, `last`, `cotacao01`, `cotacao02`, `cotacao03`, `cotacao04`, `cotacao05`, `cotacao06`, `cotacao07`, `cotacao08`, `cotacao09`, `cotacao10`, `min`, `max`, `qtd_disponivel`, `qtd_max`, `max_player`) VALUES ('ouro24k', 'https://imgur.com/kw0ZxTf.jpeg', '325', '1656021033', '325', '400', '333', '326', '365', '310', '394', '390', '345', '365', '110', '355', '10000', '10000', '100');

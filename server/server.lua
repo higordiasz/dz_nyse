@@ -527,7 +527,20 @@ function cRP.checkRendimentos()
 end
 
 function cRP.comprarOuro(data)
+	local source = source
+	local user_id = getPlayerID(source)
+	if user_id then
+		local gold = getOuro()
+		if gold then
 
+			local userInfo = getUserInfoId(user_id)
+			if userInfo then
+
+			else
+
+			end
+		end
+	end
 end
 
 function cRP.venderOuro(data)

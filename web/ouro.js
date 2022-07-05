@@ -13,9 +13,17 @@ function AtualizarValoresOuroNoInfo(ouro) {
 }
 
 function VenderOuro(data) {
-    console.log('Vender outo')
+    var q = document.getElementById("vender-ouro").value;
+    var data = {
+        "qtd": q
+    }
+    sendData("VenderOuro", data);
 }
 
 function ComprarOuro(data) {
-    console.log('Comprar ouro')
+    var q = document.getElementById("comprar-ouro").value;
+    var data = {
+        "qtd": q
+    }
+    sendData("ComprarOuro", data);
 }

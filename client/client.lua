@@ -93,6 +93,18 @@ RegisterNUICallback("Sacar", function(data)
     end
 end)
 
+RegisterNUICallback("ComprarOuro", function(data)
+    if vSERVER.comprarOuro(data) then
+        AtualizarNui()
+    end
+end)
+
+RegisterNUICallback("VenderOuro", function(data)
+    if vSERVER.venderOuro(data) then
+        AtualizarNui()
+    end
+end)
+
 RegisterNUICallback("Cancelar", function(data)
     print('Chamou o cancelar')
 end)
